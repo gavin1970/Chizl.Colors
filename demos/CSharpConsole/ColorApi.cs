@@ -68,7 +68,7 @@ internal static class ColorApi
     [return: MarshalAs(UnmanagedType.LPStr)]
     public static extern string RgbToRgbHex(RgbColor clr, bool includeAlpha);
 
-
+    // --- Set Console Colors by struct ---
 
     [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
     public static extern void SetColorsEx(RgbColor bg, RgbColor fg);
@@ -76,10 +76,16 @@ internal static class ColorApi
     public static extern void SetFgColorEx(RgbColor fg);
     [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
     public static extern void SetBgColorEx(RgbColor bg);
+
+    // --- Set Console Colors by int/uint ---
+
     [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
     public static extern void SetFgColor(uint red, uint green, uint blue);
     [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
     public static extern void SetBgColor(uint red, uint green, uint blue);
+
+    // --- Reset Foreground and Background Colors ---
+
     [DllImport(DllName)]
     public static extern void ResetColor();
 }
