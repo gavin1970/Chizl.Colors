@@ -67,4 +67,19 @@ internal static class ColorApi
     [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
     [return: MarshalAs(UnmanagedType.LPStr)]
     public static extern string RgbToRgbHex(RgbColor clr, bool includeAlpha);
+
+
+
+    [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern void SetColorsEx(RgbColor bg, RgbColor fg);
+    [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern void SetFgColorEx(RgbColor fg);
+    [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern void SetBgColorEx(RgbColor bg);
+    [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern void SetFgColor(uint red, uint green, uint blue);
+    [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern void SetBgColor(uint red, uint green, uint blue);
+    [DllImport(DllName)]
+    public static extern void ResetColor();
 }

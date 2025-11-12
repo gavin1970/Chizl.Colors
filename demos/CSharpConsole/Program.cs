@@ -1,7 +1,10 @@
-﻿namespace CSharpConsole
+﻿using System.Diagnostics;
+
+namespace CSharpConsole
 {
     internal class Program
     {
+        static readonly RgbColor rgbEmpty = new RgbColor { alpha = 0, red = 0, green = 0, blue = 0 };
         static readonly RgbColor rgbRed = new RgbColor { alpha = 255, red = 255, green = 0, blue = 0 };
         static readonly RgbColor rgbBlue = new RgbColor { alpha = 255, red = 0, green = 0, blue = 255 };
         static readonly RgbColor rgbYellow = new RgbColor { alpha = 255, red = 255, green = 255, blue = 0 };
@@ -12,33 +15,129 @@
 
         static void Main(string[] args)
         {
-            // 1. Convert to Hex
-            string hexWithAlpha = ColorApi.RgbToRgbHex(rgbAshRose, true);
-            string hexNoAlpha = ColorApi.RgbToRgbHex(rgbAshRose, false);
+            consoleColorPrintDemo();
+            colorConversionDemo();
 
-            // 2. Convert to Decimal
-            int rgbDec = ColorApi.RgbToRgbDec(rgbAshRose);
-            int argbDec = ColorApi.RgbToArgbDec(rgbAshRose);
+            // with color, use NULL instead for no color.
+            anyKey("\n\nPress any key to exit...\n\n", rgbRed);
 
-            // 3. Convert to HSL/HSV
-            HslSpace hsl = ColorApi.RgbToHsl(rgbAshRose);
-            HsvSpace hsv = ColorApi.RgbToHsv(rgbAshRose);
+            //// 1. Convert to Hex
+            //string hexWithAlpha = ColorApi.RgbToRgbHex(rgbAshRose, true);
+            //string hexNoAlpha = ColorApi.RgbToRgbHex(rgbAshRose, false);
 
-            // 4. Convert back to RGB
-            RgbColor rtHslColor = ColorApi.HslToRgb(hsl);
-            RgbColor rtHsvColor = ColorApi.HsvToRgb(hsv);
+            //// 2. Convert to Decimal
+            //int rgbDec = ColorApi.RgbToRgbDec(rgbAshRose);
+            //int argbDec = ColorApi.RgbToArgbDec(rgbAshRose);
 
-            // 5. Lets show our results
-            Console.WriteLine($"Hex (Alpha): {hexWithAlpha}, Dec: {argbDec}");      // e.g., #FF40E0D0
-            Console.WriteLine($"Hex (No Alpha): {hexNoAlpha}, Dec: {rgbDec}\n");    // e.g., #40E0D0
+            //// 3. Convert to HSL/HSV
+            //HslSpace hsl = ColorApi.RgbToHsl(rgbAshRose);
+            //HsvSpace hsv = ColorApi.RgbToHsv(rgbAshRose);
 
-            Console.WriteLine($"HSL: H={hsl.hue:F2}, S={hsl.saturation:F2}, L={hsl.lightness:F2}");
-            Console.WriteLine($"HSV: H={hsv.hue:F2}, S={hsv.saturation:F2}, L={hsv.value:F2}\n");
+            //// 4. Convert back to RGB
+            //RgbColor rtHslColor = ColorApi.HslToRgb(hsl);
+            //RgbColor rtHsvColor = ColorApi.HsvToRgb(hsv);
 
-            Console.WriteLine($"Roundtrip HSL->RGB: A={rtHslColor.alpha}, R={rtHslColor.red}, G={rtHslColor.green}, B={rtHslColor.blue}");
-            Console.WriteLine($"Roundtrip HSV->RGB: A={rtHsvColor.alpha}, R={rtHsvColor.red}, G={rtHsvColor.green}, B={rtHsvColor.blue}\n");
+            //// 5. Lets show our results
+            //Console.WriteLine($"Hex (Alpha): {hexWithAlpha}, Dec: {argbDec}");      // e.g., #FF40E0D0
+            //Console.WriteLine($"Hex (No Alpha): {hexNoAlpha}, Dec: {rgbDec}\n");    // e.g., #40E0D0
 
-            Console.ReadKey(true);
+            //Console.WriteLine($"HSL: H={hsl.hue:F2}, S={hsl.saturation:F2}, L={hsl.lightness:F2}");
+            //Console.WriteLine($"HSV: H={hsv.hue:F2}, S={hsv.saturation:F2}, L={hsv.value:F2}\n");
+
+            //Console.WriteLine($"Roundtrip HSL->RGB: A={rtHslColor.alpha}, R={rtHslColor.red}, G={rtHslColor.green}, B={rtHslColor.blue}");
+            //Console.WriteLine($"Roundtrip HSV->RGB: A={rtHsvColor.alpha}, R={rtHsvColor.red}, G={rtHsvColor.green}, B={rtHsvColor.blue}\n");
+
+            //Console.ReadKey(true);
+        }
+
+        static void SetColors(RgbColor bg, RgbColor fg)
+        {
+            if (fg.alpha != 0 && bg.alpha != 0)
+                ColorApi.SetColorsEx(bg, fg);
+            else if (fg.alpha != 0)
+                ColorApi.SetFgColorEx(fg);
+            else if (bg.alpha != 0)
+                ColorApi.SetBgColorEx(bg);
+            else
+                ColorApi.ResetColor();
+        }
+
+        static void colorConversionDemo()
+        {
+            showColorInfo(rgbCyan, rgbBlack, "Cyan - #00FFFF");
+            showColorInfo(rgbAshRose, rgbWhite, "Ash Rose - #B5817D");
+
+            anyKey("\n\nPress any key to continue...", rgbYellow);
+        }
+
+        static void showColorInfo(RgbColor clr, RgbColor textClr, string title)
+        {
+            WriteLine(clr, textClr, "--- Testing {0} Conversions ---", title);
+
+            var hsv = ColorApi.RgbToHsv(clr);
+            var hsl = ColorApi.RgbToHsl(clr);
+
+            var ahex = ColorApi.RgbToRgbHex(clr, true);
+            var hex = ColorApi.RgbToRgbHex(clr, false);
+
+            ColorApi.SetColorsEx(clr, textClr);
+            Console.WriteLine("'{0}' Color: (R:{1}, G:{2}, B:{3})", title, clr.red, clr.green, clr.blue);
+            Console.WriteLine(" - HSL: H:{0:0.00}, S:{1:0.00}, L:{2:0.00}, Raw:{3:0.000000}", hsl.hue, hsl.saturation, hsl.lightness, hsl.raw_lightness);
+            Console.WriteLine(" - HSV: H:{0:0.00}, S:{1:0.00}, V:{2:0.00}, Raw:{3:0.000000}", hsv.hue, hsv.saturation, hsv.value, hsv.raw_value);
+            Console.WriteLine(" - HEX8: {0}", ahex);
+            Console.WriteLine(" - HEX6: {0}", hex);
+            ColorApi.ResetColor();
+
+            var hsv_rt = ColorApi.HsvToRgb(hsv);
+            var hsl_rt = ColorApi.HslToRgb(hsl);
+
+            Console.WriteLine(" - HSL Roundtrip -> RGB: (R:{0}, G:{1}, B:{2})", hsl_rt.red, hsl_rt.green, hsl_rt.blue);
+            Console.WriteLine(" - HSV Roundtrip -> RGB: (R:{0}, G:{1}, B:{2})", hsv_rt.red, hsv_rt.green, hsv_rt.blue);
+        }
+
+        static void consoleColorPrintDemo()
+        {
+            // Other ways to be done:
+            //  SetBgColor(255, 0, 0);
+            //  SetFgColor(255, 255, 0);
+            //  SetColorsEx(rgbYellow, rgbRed);
+            Write(rgbRed, rgbYellow, " Yellow on Red ");
+
+            // This will have no color.
+            Write(rgbEmpty, rgbEmpty, " - default color - ");
+
+            // Also can be done:
+            //  SetFgColor(0, 255, 255);
+            //  SetFgColorEx(rgbCyan);
+            WriteLine(rgbEmpty, rgbCyan, "Cyan text only.");
+
+            // with color
+            anyKey("\n\nPress any key to continue...", rgbYellow);
+        }
+
+        static void Write(RgbColor bg, RgbColor fg, string msg, params object[] args) 
+            => printWithColor(bg, fg, string.Format(msg, args));
+
+        static void WriteLine(RgbColor bg, RgbColor fg, string msg, params object[] args) 
+            => printWithColor(bg, fg, string.Format($"{msg}\n", args));
+
+        static void printWithColor(RgbColor bg, RgbColor fg, string msg)
+        {
+            if (string.IsNullOrWhiteSpace(msg))
+                return;
+
+            SetColors(bg, fg);
+            Console.Write(msg);      // Use threadsafe, and insure not extra % was uncaught.
+            ColorApi.ResetColor();   // resets foreground and background color to console default colors.
+        }
+
+        static void anyKey(string msg, RgbColor fg)
+        {
+            if (!string.IsNullOrWhiteSpace(msg))
+            {
+                WriteLine(rgbEmpty, fg, msg);
+                Console.ReadKey(true);
+            }
         }
     }
 }
