@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Text;
 
 namespace CSharpConsole
 {
@@ -12,14 +13,15 @@ namespace CSharpConsole
         static readonly RgbColor rgbAshRose = new RgbColor { alpha = 255, red = 181, green = 129, blue = 125 };
         static readonly RgbColor rgbBlack = new RgbColor { alpha = 255, red = 0, green = 0, blue = 0 };
         static readonly RgbColor rgbWhite = new RgbColor { alpha = 255, red = 255, green = 255, blue = 255 };
+        static readonly RgbColor rgbConsoleBlack = new RgbColor { alpha = 255, red = 12, green = 12, blue = 12 };
 
         static void Main(string[] args)
         {
             consoleColorPrintDemo();
             colorConversionDemo();
-
+            
             // with color, use NULL instead for no color.
-            anyKey("\n\nPress any key to exit...\n\n", rgbRed);
+            anyKey("Press any key to exit...", rgbRed);
         }
 
         static void SetColors(RgbColor bg, RgbColor fg)
@@ -36,15 +38,20 @@ namespace CSharpConsole
 
         static void colorConversionDemo()
         {
-            showColorInfo(rgbCyan, rgbBlack, "Cyan - #00FFFF");
-            showColorInfo(rgbAshRose, rgbWhite, "Ash Rose - #B5817D");
+            showColorInfo(rgbCyan, rgbBlack, "Cyan");
+            Console.WriteLine();
+            showColorInfo(rgbAshRose, rgbWhite, "Ash Rose");
+            Console.WriteLine();
+            showColorInfo(rgbBlue, rgbWhite, "Blue");
+            Console.WriteLine();
 
-            anyKey("\n\nPress any key to continue...", rgbYellow);
+            anyKey("Press any key to continue...", rgbYellow);
         }
 
         static void showColorInfo(RgbColor clr, RgbColor textClr, string title)
         {
-            WriteLine(clr, textClr, "--- Testing {0} Conversions ---", title);
+            var pad = " ";
+            var sb = new StringBuilder();
 
             var hsv = ColorApi.RgbToHsv(clr);
             var hsl = ColorApi.RgbToHsl(clr);
@@ -52,19 +59,25 @@ namespace CSharpConsole
             var ahex = ColorApi.RgbToRgbHex(clr, true);
             var hex = ColorApi.RgbToRgbHex(clr, false);
 
-            ColorApi.SetColorsEx(clr, textClr);
-            Console.WriteLine("'{0}' Color: (R:{1}, G:{2}, B:{3})", title, clr.red, clr.green, clr.blue);
-            Console.WriteLine(" - HSL: H:{0:0.00}, S:{1:0.00}, L:{2:0.00}, Raw:{3:0.000000}", hsl.hue, hsl.saturation, hsl.lightness, hsl.raw_lightness);
-            Console.WriteLine(" - HSV: H:{0:0.00}, S:{1:0.00}, V:{2:0.00}, Raw:{3:0.000000}", hsv.hue, hsv.saturation, hsv.value, hsv.raw_value);
-            Console.WriteLine(" - HEX8: {0}", ahex);
-            Console.WriteLine(" - HEX6: {0}", hex);
-            ColorApi.ResetColor();
+            var aDec = ColorApi.RgbToRgbDec(clr);
+            var dec = ColorApi.RgbToArgbDec(clr);
 
-            var hsv_rt = ColorApi.HsvToRgb(hsv);
-            var hsl_rt = ColorApi.HslToRgb(hsl);
+            var hsv_rev = ColorApi.HsvToRgb(hsv);
+            var hsl_rev = ColorApi.HslToRgb(hsl);
 
-            Console.WriteLine(" - HSL Roundtrip -> RGB: (R:{0}, G:{1}, B:{2})", hsl_rt.red, hsl_rt.green, hsl_rt.blue);
-            Console.WriteLine(" - HSV Roundtrip -> RGB: (R:{0}, G:{1}, B:{2})", hsv_rt.red, hsv_rt.green, hsv_rt.blue);
+            sb.AppendLine($"{pad} --- Testing {title} - {hex} Conversions ---\n");
+
+            sb.AppendLine($"{pad}'{title}' Color: (R:{clr.red}, G:{clr.green}, B:{clr.blue})");
+            sb.AppendLine($"{pad} - HSV: H:{hsv.hue:0.00}, S:{hsv.saturation:0.00}, V:{hsv.value:0.00}, Raw:{hsv.raw_value:0.000000}");
+            sb.AppendLine($"{pad} - HSL: H:{hsl.hue:0.00}, S:{hsl.saturation:0.00}, L:{hsl.lightness:0.00}, Raw:{hsl.raw_lightness:0.000000}\n");
+
+            sb.AppendLine($"{pad} - HEX8: {ahex}, Dec: {aDec}");
+            sb.AppendLine($"{pad} - HEX6: {hex},   Dec: {dec}\n");
+
+            sb.AppendLine($"{pad} - HSV Roundtrip -> RGB: (R:{hsv_rev.red}, G:{hsv_rev.green}, B:{hsv_rev.blue})");
+            sb.AppendLine($"{pad} - HSL Roundtrip -> RGB: (R:{hsl_rev.red}, G:{hsl_rev.green}, B:{hsl_rev.blue})\n");
+
+            WriteLines(clr, textClr, sb.ToString().Replace("\r", "").Split('\n'), 55);
         }
 
         static void consoleColorPrintDemo()
@@ -81,21 +94,40 @@ namespace CSharpConsole
             // Also can be done:
             //  SetFgColor(0, 255, 255);
             //  SetFgColorEx(rgbCyan);
-            WriteLine(rgbEmpty, rgbCyan, "Cyan text only.");
+            WriteLine(rgbEmpty, rgbCyan, "Cyan text only.\n\n");
 
             // with color
-            anyKey("\n\nPress any key to continue...", rgbYellow);
+            anyKey("Press any key to continue...", rgbYellow);
         }
 
         static void Write(RgbColor bg, RgbColor fg, string msg, params object[] args) 
             => printWithColor(bg, fg, string.Format(msg, args));
 
-        static void WriteLine(RgbColor bg, RgbColor fg, string msg, params object[] args) 
+        static void WriteLine(RgbColor bg, RgbColor fg, string msg, params object[] args)
             => printWithColor(bg, fg, string.Format($"{msg}\n", args));
+
+        static int WriteLines(RgbColor bg, RgbColor fg, string[] msgs, int minWidth=0)
+        {
+            var maxLen = 0;
+            foreach (var msg in msgs)
+                maxLen = Math.Max(maxLen, msg.Length);
+
+            maxLen++;   // add space to end            
+            if (maxLen < minWidth)
+                maxLen = minWidth;
+
+            foreach (var msg in msgs)
+            {
+                var newMsg = msg + new string(' ', maxLen - msg.Length);
+                printWithColor(bg, fg, string.Format($"{newMsg}\n"));
+            }
+
+            return maxLen;
+        }
 
         static void printWithColor(RgbColor bg, RgbColor fg, string msg)
         {
-            if (string.IsNullOrWhiteSpace(msg))
+            if (string.IsNullOrEmpty(msg))
                 return;
 
             SetColors(bg, fg);
@@ -107,8 +139,18 @@ namespace CSharpConsole
         {
             if (!string.IsNullOrWhiteSpace(msg))
             {
+                var curLoc = new int[] { Console.CursorLeft, Console.CursorTop };
                 WriteLine(rgbEmpty, fg, msg);
+
                 Console.ReadKey(true);
+                //set cursor back to start of message.
+                Console.CursorTop = curLoc[1];
+                Console.CursorLeft = curLoc[0];
+                //write message, but in black, overwriting and keeping CrLf that might exists.
+                WriteLine(rgbEmpty, rgbConsoleBlack, msg);
+                //set cursor back to start of message.
+                Console.CursorTop = curLoc[1];
+                Console.CursorLeft = curLoc[0];
             }
         }
     }

@@ -48,7 +48,7 @@ static void colorConversionDemo()
 }
 
 static void showColorInfo(RgbColor clr, RgbColor textClr, char* title) {
-    WriteLine(&clr, &textClr, "--- Testing %s Conversions ---", title);
+    WriteLine(&clr, &textClr, " --- Testing %s Conversions --- ", title);
 
     HsvSpace hsv = RgbToHsv(clr);
     HslSpace hsl = RgbToHsl(clr);
@@ -57,18 +57,18 @@ static void showColorInfo(RgbColor clr, RgbColor textClr, char* title) {
     char* hex = RgbToRgbHex(clr, 0);
 
     SetColorsEx(clr, textClr);
-    printf("'%s' Color: (R:%u, G:%u, B:%u)\n", title, clr.red, clr.green, clr.blue);
-    printf(" - HSL: H:%.2f, S:%.2f, L:%.2f, Raw:%f\n", hsl.hue, hsl.saturation, hsl.lightness, hsl.raw_lightness);
-    printf(" - HSV: H:%.2f, S:%.2f, V:%.2f, Raw:%f\n", hsv.hue, hsv.saturation, hsv.value, hsv.raw_value);
-    printf(" - HEX8: %s\n", ahex);
-    printf(" - HEX6: %s\n", hex);
+    printf(" '%s' Color: (R:%u, G:%u, B:%u) \n", title, clr.red, clr.green, clr.blue);
+    printf("  - HSL: H:%.2f, S:%.2f, L:%.2f, Raw:%f \n", hsl.hue, hsl.saturation, hsl.lightness, hsl.raw_lightness);
+    printf("  - HSV: H:%.2f, S:%.2f, V:%.2f, Raw:%f \n", hsv.hue, hsv.saturation, hsv.value, hsv.raw_value);
+    printf("  - HEX8: %s \n", ahex);
+    printf("  - HEX6: %s \n", hex);
     ResetColor();
 
     RgbColor hsv_rt = HsvToRgb(hsv);
     RgbColor hsl_rt = HslToRgb(hsl);
 
-    printf(" - HSL Roundtrip -> RGB: (R:%u, G:%u, B:%u)\n", hsl_rt.red, hsl_rt.green, hsl_rt.blue);
-    printf(" - HSV Roundtrip -> RGB: (R:%u, G:%u, B:%u)\n", hsv_rt.red, hsv_rt.green, hsv_rt.blue);
+    printf("  - HSL Roundtrip -> RGB: (R:%u, G:%u, B:%u) \n", hsl_rt.red, hsl_rt.green, hsl_rt.blue);
+    printf("  - HSV Roundtrip -> RGB: (R:%u, G:%u, B:%u) \n", hsv_rt.red, hsv_rt.green, hsv_rt.blue);
 }
 
 static void consoleColorPrintDemo() {

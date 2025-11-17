@@ -10,7 +10,7 @@
 /// Color struct definition without alpha.
 /// </summary>
 typedef struct {
-    unsigned char alpha;    // 0 - 100, Transparncy: 0 = invisible, 100 = solid
+    unsigned char alpha;    // 0 - 255, Transparncy: 0 = invisible, 255 = solid
     unsigned char red;      // 0 - 255, Dark = 0, Bright Red = 255
     unsigned char green;    // 0 - 255, Dark = 0, Bright Green = 255
     unsigned char blue;     // 0 - 255, Dark = 0, Bright Blue = 255
