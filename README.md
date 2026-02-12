@@ -51,7 +51,9 @@ A lightweight, cross-platform C/C++ library for color manipulation and console c
 ### C/C++ Usage
 ```C
 #include "chizl_colors.h"
-int main() { // Create an RGB color RgbColor cyan = { 255, 0, 255, 255 }; // alpha, red, green, blue
+int main() { 
+	// Create an RGB color 
+	RgbColor cyan = { 255, 0, 255, 255 }; // alpha, red, green, blue
 	// Convert to HSV
 	HsvSpace hsv = RgbToHsv(cyan);
 	printf("HSV: H:%.2f, S:%.2f, V:%.2f\n", hsv.hue, hsv.saturation, hsv.value);
@@ -97,7 +99,7 @@ ResetColor();
 
 * `HslSpace RgbToHsl(RgbColor rgb)`
 	* Converts RGB to HSL (Hue, Saturation, Lightness) color space.
-	* **Returns**: `HslSpace` with hue (0-360°), saturation (0-100%), lightness (0-100%), and raw_lightness
+	* **Returns**: `HslSpace` with hue (0-360ï¿½), saturation (0-100%), lightness (0-100%), and raw_lightness
 
 * `RgbColor HslToRgb(HslSpace hsl)`
 	* Converts HSL to RGB. Uses raw_lightness if available for precision.
@@ -213,14 +215,14 @@ ColorApi.ResetColor();
 - **Use Case**: Display, web, image formats
 
 ### HSV (Hue, Saturation, Value)
-- **Hue**: 0-360° (color wheel)
+- **Hue**: 0-360ï¿½ (color wheel)
 - **Saturation**: 0-100% (color intensity)
 - **Value**: 0-100% (brightness)
 - **Total Combinations**: ~3,600,000
 - **Use Case**: Color picking, adjusting brightness
 
 ### HSL (Hue, Saturation, Lightness)
-- **Hue**: 0-360° (color wheel)
+- **Hue**: 0-360ï¿½ (color wheel)
 - **Saturation**: 0-100% (color purity)
 - **Lightness**: 0-100% (light/dark balance)
 - **Total Combinations**: ~3,600,000
