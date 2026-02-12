@@ -25,6 +25,9 @@
     <Filter Include="Source Files\public">
       <UniqueIdentifier>{dec6c742-40c9-4896-979d-4b2ffa159666}</UniqueIdentifier>
     </Filter>
+    <Filter Include="docs">
+      <UniqueIdentifier>{8a0a8319-e80b-40ae-b09d-ecaceaf1428d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ansi_printing.c">
@@ -50,5 +53,10 @@
     <ClInclude Include="chizl_colors_types.h">
       <Filter>Header Files\public</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="console_examples.png">
+      <Filter>docs</Filter>
+    </Image>
   </ItemGroup>
 </Project>

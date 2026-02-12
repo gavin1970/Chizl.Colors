@@ -5,6 +5,8 @@ namespace CSharpConsole
 {
     internal class Program
     {
+        const string welcomeToDemo = " Welcome to the .NET Console Color Demo! ";
+
         static readonly RgbColor rgbEmpty = new RgbColor { alpha = 0, red = 0, green = 0, blue = 0 };
         static readonly RgbColor rgbRed = new RgbColor { alpha = 255, red = 255, green = 0, blue = 0 };
         static readonly RgbColor rgbBlue = new RgbColor { alpha = 255, red = 0, green = 0, blue = 255 };
@@ -17,11 +19,11 @@ namespace CSharpConsole
 
         static void Main(string[] args)
         {
-            consoleColorPrintDemo();
-            colorConversionDemo();
+            ConsoleColorPrintDemo();
+            ColorConversionDemo();
             
             // with color, use NULL instead for no color.
-            anyKey("Press any key to exit...", rgbRed);
+            AnyKey("Press any key to exit...", rgbRed);
         }
 
         static void SetColors(RgbColor bg, RgbColor fg)
@@ -36,19 +38,17 @@ namespace CSharpConsole
                 ColorApi.ResetColor();
         }
 
-        static void colorConversionDemo()
+        static void ColorConversionDemo()
         {
-            showColorInfo(rgbCyan, rgbBlack, "Cyan");
-            Console.WriteLine();
-            showColorInfo(rgbAshRose, rgbWhite, "Ash Rose");
-            Console.WriteLine();
-            showColorInfo(rgbBlue, rgbWhite, "Blue");
+            ShowColorInfo(rgbCyan, rgbBlack, "Cyan");
+            ShowColorInfo(rgbAshRose, rgbWhite, "Ash Rose");
+            ShowColorInfo(rgbBlue, rgbWhite, "Blue");
             Console.WriteLine();
 
-            anyKey("Press any key to continue...", rgbYellow);
+            AnyKey("Press any key to continue...", rgbYellow);
         }
 
-        static void showColorInfo(RgbColor clr, RgbColor textClr, string title)
+        static void ShowColorInfo(RgbColor clr, RgbColor textClr, string title)
         {
             var pad = " ";
             var sb = new StringBuilder();
@@ -65,46 +65,40 @@ namespace CSharpConsole
             var hsv_rev = ColorApi.HsvToRgb(hsv);
             var hsl_rev = ColorApi.HslToRgb(hsl);
 
-            sb.AppendLine($"{pad} --- Testing {title} - {hex} Conversions ---\n");
+            sb.AppendLine($"{pad} --- Testing {title} - {hex} Conversions ---");
 
             sb.AppendLine($"{pad}'{title}' Color: (R:{clr.red}, G:{clr.green}, B:{clr.blue})");
             sb.AppendLine($"{pad} - HSV: H:{hsv.hue:0.00}, S:{hsv.saturation:0.00}, V:{hsv.value:0.00}, Raw:{hsv.raw_value:0.000000}");
-            sb.AppendLine($"{pad} - HSL: H:{hsl.hue:0.00}, S:{hsl.saturation:0.00}, L:{hsl.lightness:0.00}, Raw:{hsl.raw_lightness:0.000000}\n");
+            sb.AppendLine($"{pad} - HSL: H:{hsl.hue:0.00}, S:{hsl.saturation:0.00}, L:{hsl.lightness:0.00}, Raw:{hsl.raw_lightness:0.000000}");
 
             sb.AppendLine($"{pad} - HEX8: {ahex}, Dec: {aDec}");
-            sb.AppendLine($"{pad} - HEX6: {hex},   Dec: {dec}\n");
+            sb.AppendLine($"{pad} - HEX6: {hex},   Dec: {dec}");
 
             sb.AppendLine($"{pad} - HSV Roundtrip -> RGB: (R:{hsv_rev.red}, G:{hsv_rev.green}, B:{hsv_rev.blue})");
-            sb.AppendLine($"{pad} - HSL Roundtrip -> RGB: (R:{hsl_rev.red}, G:{hsl_rev.green}, B:{hsl_rev.blue})\n");
+            sb.AppendLine($"{pad} - HSL Roundtrip -> RGB: (R:{hsl_rev.red}, G:{hsl_rev.green}, B:{hsl_rev.blue})");
 
             WriteLines(clr, textClr, sb.ToString().Replace("\r", "").Split('\n'), 55);
         }
 
-        static void consoleColorPrintDemo()
+        static void ConsoleColorPrintDemo()
         {
-            // Other ways to be done:
-            //  SetBgColor(255, 0, 0);
-            //  SetFgColor(255, 255, 0);
-            //  SetColorsEx(rgbYellow, rgbRed);
-            Write(rgbRed, rgbYellow, " Yellow on Red ");
+            int num_spaces = (int)(Console.BufferWidth * 0.5) - (int)(welcomeToDemo.Length * 0.5);
+            Write(rgbEmpty, rgbEmpty, new string(' ', num_spaces));
+            WriteLine(rgbRed, rgbYellow, welcomeToDemo);
 
-            // This will have no color.
-            Write(rgbEmpty, rgbEmpty, " - default color - ");
-
-            // Also can be done:
-            //  SetFgColor(0, 255, 255);
-            //  SetFgColorEx(rgbCyan);
-            WriteLine(rgbEmpty, rgbCyan, "Cyan text only.\n\n");
-
-            // with color
-            anyKey("Press any key to continue...", rgbYellow);
+            // Set no color.
+            WriteLine(rgbEmpty, rgbEmpty, " - showing default color - ");
+            // foreground color only.
+            WriteLine(rgbEmpty, rgbCyan, "Cyan text only.");
+            // foreground color only.
+            AnyKey("Press any key to continue...", rgbYellow);
         }
 
         static void Write(RgbColor bg, RgbColor fg, string msg, params object[] args) 
-            => printWithColor(bg, fg, string.Format(msg, args));
+            => PrintWithColor(bg, fg, string.Format(msg, args));
 
         static void WriteLine(RgbColor bg, RgbColor fg, string msg, params object[] args)
-            => printWithColor(bg, fg, string.Format($"{msg}\n", args));
+            => PrintWithColor(bg, fg, string.Format($"{msg}\n", args));
 
         static int WriteLines(RgbColor bg, RgbColor fg, string[] msgs, int minWidth=0)
         {
@@ -119,13 +113,13 @@ namespace CSharpConsole
             foreach (var msg in msgs)
             {
                 var newMsg = msg + new string(' ', maxLen - msg.Length);
-                printWithColor(bg, fg, string.Format($"{newMsg}\n"));
+                PrintWithColor(bg, fg, string.Format($"{newMsg}\n"));
             }
 
             return maxLen;
         }
 
-        static void printWithColor(RgbColor bg, RgbColor fg, string msg)
+        static void PrintWithColor(RgbColor bg, RgbColor fg, string msg)
         {
             if (string.IsNullOrEmpty(msg))
                 return;
@@ -135,7 +129,7 @@ namespace CSharpConsole
             ColorApi.ResetColor();   // resets foreground and background color to console default colors.
         }
 
-        static void anyKey(string msg, RgbColor fg)
+        static void AnyKey(string msg, RgbColor fg)
         {
             if (!string.IsNullOrWhiteSpace(msg))
             {

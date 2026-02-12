@@ -10,25 +10,33 @@ const RgbColor rgbCyan = { 255, 0, 255, 255 };
 const RgbColor rgbAshRose = { 255, 181, 129, 125 };
 const RgbColor rgbBlack = { 255, 0, 0, 0 };
 const RgbColor rgbWhite = { 255, 255, 255, 255 };
+const char* welcomeToDemo = " Welcome to the C Console Color Demo! ";
 
-static void colorConversionDemo();
-static void consoleColorPrintDemo();
-static void printWithColor(const RgbColor* bg, const RgbColor* fg, const char* msg);
-static void showColorInfo(RgbColor clr, RgbColor textClr, char* title);
-static void anyKey(const char* msg, const RgbColor* fg);
-static void formatString(char* buffer, size_t size, const char* fmt, ...);
-static void formatStringV(char* buffer, size_t size, const char* fmt, va_list args);
+static void ColorConversionDemo(void);
+static void ConsoleColorPrintDemo(void);
+static void ShowColorInfo(RgbColor bgColor, RgbColor fgColor, char* title);
+static void AnyKey(const char* msg, const RgbColor* fg);
+static void FormatStringV(char* buffer, size_t size, const char* fmt, va_list args);
 static void SetColors(const RgbColor* bg, const RgbColor* fg);
 static void WriteLine(const RgbColor* bg, const RgbColor* fg, const char* msg, ...);
 static void Write(const RgbColor* bg, const RgbColor* fg, const char* msg, ...);
+static void PrintLine(const char* fmt, ...);
+static void EnableVT(void);
+static BOOL CreateHeader(void);
 
 int main(void)
 {
-    consoleColorPrintDemo();
-    colorConversionDemo();
+    EnableVT();
+    if (!CreateHeader())
+    {
+		printf("Failed to create header.\n");
+        return 1;
+    }
+    ConsoleColorPrintDemo();
+    ColorConversionDemo();
 
     // with color, use NULL instead for no color.
-    anyKey("\n\nPress any key to exit...\n\n", &rgbRed);
+    AnyKey("Press any key to exit...\n\n", &rgbRed);
     return 0;
 }
 
@@ -39,58 +47,57 @@ static void SetColors(const RgbColor* bg, const RgbColor* fg) {
     else ResetColor();
 }
 
-static void colorConversionDemo()
+/// <summary>
+/// Does a dump of the bg color info for the provided color, including conversions to/from HSL and HSV, and hex formats.
+/// </summary>
+static void ColorConversionDemo(void)
 {
-    showColorInfo(rgbCyan, rgbBlack, "Cyan - #00FFFF");
-    showColorInfo(rgbAshRose, rgbWhite, "Ash Rose - #B5817D");
+    ShowColorInfo(rgbCyan, rgbBlack, "Cyan - #00FFFF");
+    ShowColorInfo(rgbAshRose, rgbWhite, "Ash Rose - #B5817D");
 
-    anyKey("\n\nPress any key to continue...", &rgbYellow);
+    AnyKey("Press any key to continue...", &rgbYellow);
 }
 
-static void showColorInfo(RgbColor clr, RgbColor textClr, char* title) {
-    WriteLine(&clr, &textClr, " --- Testing %s Conversions --- ", title);
-
-    HsvSpace hsv = RgbToHsv(clr);
-    HslSpace hsl = RgbToHsl(clr);
-
-    char* ahex = RgbToRgbHex(clr, 1);
-    char* hex = RgbToRgbHex(clr, 0);
-
-    SetColorsEx(clr, textClr);
-    printf(" '%s' Color: (R:%u, G:%u, B:%u) \n", title, clr.red, clr.green, clr.blue);
-    printf("  - HSL: H:%.2f, S:%.2f, L:%.2f, Raw:%f \n", hsl.hue, hsl.saturation, hsl.lightness, hsl.raw_lightness);
-    printf("  - HSV: H:%.2f, S:%.2f, V:%.2f, Raw:%f \n", hsv.hue, hsv.saturation, hsv.value, hsv.raw_value);
-    printf("  - HEX8: %s \n", ahex);
-    printf("  - HEX6: %s \n", hex);
-    ResetColor();
-
+/// <summary>
+/// Does a dump of the bg color info for the provided color, including conversions to/from HSL and HSV, and hex formats.
+/// </summary>
+/// <param name="bgColor"></param>
+/// <param name="fgColor"></param>
+/// <param name="title"></param>
+static void ShowColorInfo(RgbColor bgColor, RgbColor fgColor, char* title) {
+    HsvSpace hsv = RgbToHsv(bgColor);
+    HslSpace hsl = RgbToHsl(bgColor);
     RgbColor hsv_rt = HsvToRgb(hsv);
     RgbColor hsl_rt = HslToRgb(hsl);
 
-    printf("  - HSL Roundtrip -> RGB: (R:%u, G:%u, B:%u) \n", hsl_rt.red, hsl_rt.green, hsl_rt.blue);
-    printf("  - HSV Roundtrip -> RGB: (R:%u, G:%u, B:%u) \n", hsv_rt.red, hsv_rt.green, hsv_rt.blue);
+    char* ahex = RgbToRgbHex(bgColor, 1);
+    char* hex = RgbToRgbHex(bgColor, 0);
+
+    SetColorsEx(bgColor, fgColor);
+    
+    PrintLine(" --- Testing %s Conversions --- ", title);
+    PrintLine(" '%s' Color: (R:%u, G:%u, B:%u)", title, bgColor.red, bgColor.green, bgColor.blue);
+    PrintLine("  - HSL: H:%.2f, S:%.2f, L:%.2f, Raw:%f", hsl.hue, hsl.saturation, hsl.lightness, hsl.raw_lightness);
+    PrintLine("  - HSV: H:%.2f, S:%.2f, V:%.2f, Raw:%f", hsv.hue, hsv.saturation, hsv.value, hsv.raw_value);
+    PrintLine("  - HEX8: %s", ahex);
+    PrintLine("  - HEX6: %s", hex);
+
+    PrintLine("  - HSL Roundtrip -> RGB: (R:%u, G:%u, B:%u)", hsl_rt.red, hsl_rt.green, hsl_rt.blue);
+    PrintLine("  - HSV Roundtrip -> RGB: (R:%u, G:%u, B:%u)", hsv_rt.red, hsv_rt.green, hsv_rt.blue);
+
+    ResetColor();
 }
 
-static void consoleColorPrintDemo() {
-    // Other ways to be done:
-    //  SetBgColor(255, 0, 0);
-    //  SetFgColor(255, 255, 0);
-    //  SetColorsEx(rgbYellow, rgbRed);
-    Write(&rgbRed, &rgbYellow, " Yellow on Red ");
-
-    // This will have no color.
-    Write(NULL, NULL, " - default color - ");
-
-    // Also can be done:
-    //  SetFgColor(0, 255, 255);
-    //  SetFgColorEx(rgbCyan);
+static void ConsoleColorPrintDemo(void) {
+    // Set no color.
+    WriteLine(NULL, NULL, " - showing default color - ");
+    // foreground color only.
     WriteLine(NULL, &rgbCyan, "Cyan text only.");
-
-    // with color
-    anyKey("\n\nPress any key to continue...", &rgbYellow);
+	// foreground color only.
+    AnyKey("Press any key to continue...", &rgbYellow);
 }
 
-static void Write(const RgbColor* bg, const RgbColor* fg, const char* msg, ...) {
+static void Write(const RgbColor *bg, const RgbColor *fg, const char* msg, ...) {
     if (msg == NULL)
         return;
 
@@ -99,56 +106,129 @@ static void Write(const RgbColor* bg, const RgbColor* fg, const char* msg, ...) 
 
     va_list args;
     va_start(args, msg);
-    formatStringV(buffer, len, msg, args);
+    FormatStringV(buffer, len, msg, args);
     va_end(args);
 
-    printWithColor(bg, fg, buffer);
+    SetColors(bg, fg);
+    fwrite(buffer, 1, len, stdout);
+    ResetColor();
 }
 
 static void WriteLine(const RgbColor* bg, const RgbColor* fg, const char* msg, ...) {
     if (msg == NULL)
         return;
 
-    char buffer[256] = { 0 };
-    size_t len = sizeof(buffer);
-
     va_list args;
     va_start(args, msg);
-    formatStringV(buffer, len, msg, args);
+    Write(bg, fg, msg, args);
     va_end(args);
 
-    printWithColor(bg, fg, buffer);
-    printf("\n");
+    putchar('\n');
 }
 
-static void printWithColor(const RgbColor* bg, const RgbColor* fg, const char* msg) {
-    if (msg == NULL)
-        return;
-
-    SetColors(bg, fg);
-    printf_s("%s", msg);    // Use threadsafe, and insure not extra % was uncaught.
-    ResetColor();           // resets foreground and background color to console default colors.
-}
-
-static void formatStringV(char* buffer, size_t size, const char* fmt, va_list args) {
+static void FormatStringV(char* buffer, size_t size, const char* fmt, va_list args) {
     vsnprintf(buffer, size, fmt, args);
 }
 
-static void formatString(char* buffer, size_t size, const char* fmt, ...) {
-    va_list args;
-    va_start(args, fmt);
-    formatStringV(buffer, size, fmt, args);
-    va_end(args);
-}
-
-static void anyKey(const char* msg, const RgbColor* fg) {
+static void AnyKey(const char* msg, const RgbColor* fg) {
     // Clear buffer.  
     // If this wasn't used, previous buffered input could 
-    // force _getch() to continue without prompt.
+    // force _getch() to continue without prompt.  
     FlushConsoleInputBuffer(GetStdHandle(STD_INPUT_HANDLE));
 
     if (msg != NULL)
         WriteLine(NULL, fg, msg);
 
-    int c = _getch();
+    int c = 0;
+    // not sure why, F-Keys will throw a 0 first, but we want to ignore it.  
+    // If we don't, F-Keys will cause the next prompt to be skipped.
+	while (c == 0)  
+        c = _getch();
+}
+
+/// <summary>
+/// Setup Terminal type for this console.
+/// </summary>
+static void EnableVT(void)
+{
+    HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    if (hOut == INVALID_HANDLE_VALUE) return;
+
+    DWORD mode = 0;
+    if (!GetConsoleMode(hOut, &mode)) return;
+
+    if (!(mode & ENABLE_VIRTUAL_TERMINAL_PROCESSING))
+        SetConsoleMode(hOut, mode | ENABLE_VIRTUAL_TERMINAL_PROCESSING);
+}
+
+static int ConsoleWidth(void)
+{
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    if (GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi))
+        return csbi.srWindow.Right - csbi.srWindow.Left + 1;
+    return 120;
+}
+
+static int CursorX(void)
+{
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    if (GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi))
+        return csbi.dwCursorPosition.X;
+    return 0;
+}
+
+static BOOL CreateHeader(void) {
+    int num_spaces = (int)(ConsoleWidth() * 0.5) - (int)(strlen(welcomeToDemo) * 0.5);
+
+    char* space_string = malloc(num_spaces + 1);
+    if (space_string == NULL) {
+        // Handle memory allocation failure
+        perror("malloc failed");
+        return FALSE;
+    }
+    else {
+        memset(space_string, ' ', num_spaces);
+        space_string[num_spaces] = '\0';
+    }
+
+    // Default background and foreground color.
+    Write(NULL, NULL, space_string);
+    // Set background and foreground color.
+    WriteLine(&rgbRed, &rgbYellow, welcomeToDemo);
+
+    return TRUE;
+}
+
+/// <summary>
+/// This is specifically for bg colors that we want console width.
+/// </summary>
+static void PrintLine(const char* fmt, ...)
+{
+    char buf[1024];
+
+    va_list ap;
+    va_start(ap, fmt);
+    vsnprintf(buf, sizeof(buf), fmt, ap);
+    va_end(ap);
+
+    // Strip trailing newline if caller included it
+    size_t len = strlen(buf);
+    while (len && (buf[len - 1] == '\n' || buf[len - 1] == '\r')) {
+        buf[--len] = '\0';
+    }
+
+    int width = ConsoleWidth();
+    int x = CursorX();                 // where we are on the current line
+    int remaining = width - x;         // cells left on this line
+
+    // print text (truncate if it would wrap)
+    int toWrite = (int)len;
+    if (toWrite > remaining) toWrite = remaining;
+    fwrite(buf, 1, (size_t)toWrite, stdout);
+
+    // pad the rest of the *current* line only (no wrapping)
+    int pad = remaining - toWrite;
+    for (int i = 0; i < pad; i++) putchar(' ');
+
+    putchar('\n');
 }
