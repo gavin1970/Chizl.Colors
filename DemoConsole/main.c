@@ -193,6 +193,9 @@ static BOOL CreateHeader(void) {
 
     // Default background and foreground color.
     Write(NULL, NULL, space_string);
+	// free from malloc
+    free(space_string);
+
     // Set background and foreground color.
     WriteLine(&rgbRed, &rgbYellow, welcomeToDemo);
 
