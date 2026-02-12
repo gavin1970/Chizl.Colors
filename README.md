@@ -165,7 +165,7 @@ ResetColor();
 
 ### C# .NET Example
 
-See the full .NET demo in [`demos/CSharpConsole/Program.cs`](./demos/CSharpConsole/Program.cs`):
+See the full .NET demo in [`demos/CSharpConsole/Program.cs`](./demos/CSharpConsole/Program.cs):
 
 ```C#
 static readonly RgbColor rgbCyan = new RgbColor { alpha = 255, red = 0, green = 255, blue = 255 }; 
