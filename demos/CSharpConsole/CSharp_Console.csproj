@@ -6,11 +6,16 @@
 				<ImplicitUsings>enable</ImplicitUsings>
 				<Nullable>enable</Nullable>
 				<Platforms>AnyCPU;x64</Platforms>
-				<PlatformTarget>x64</PlatformTarget>
+				<PlatformTarget>AnyCPU</PlatformTarget>
 		</PropertyGroup>
 
-		<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-				<Exec Command="COPY &quot;$(SolutionDir)$(PlatformName)\$(ConfigurationName)\chizl.colors.dll&quot; &quot;$(TargetDir)&quot;" />
-		</Target>
+		<PropertyGroup>
+				<NativePlatform>$(Platform)</NativePlatform>
+				<NativePlatform Condition="'$(Platform)'=='AnyCPU'">x64</NativePlatform>
+				<StartupObject>CSharpConsole.Program</StartupObject>
+		</PropertyGroup>
 
+		<Target Name="CopyNativeDll" AfterTargets="Build">
+				<Copy SourceFiles="$(SolutionDir)$(NativePlatform)\$(Configuration)\chizl.colors.dll" DestinationFolder="$(TargetDir)" SkipUnchangedFiles="true" />
+		</Target>
 </Project>
