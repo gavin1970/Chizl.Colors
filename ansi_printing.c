@@ -14,6 +14,7 @@ static void PrintAnsiColor(int isFg, unsigned char r, unsigned char g, unsigned 
         clampUChr(b, 0, 255));
 
     printf("%s", code);
+    fflush(stdout);
 }
 
 CHIZL_COLORS_API void SetColorsEx(RgbColor bg, RgbColor fg) 
@@ -36,6 +37,14 @@ CHIZL_COLORS_API void SetBgColor(unsigned char red, unsigned char green, unsigne
 { 
     PrintAnsiColor(0, red, green, blue); 
 }
-CHIZL_COLORS_API void ResetColor(void) { printf("\x1b[0m"); }
-// CHIZL_COLORS_API void ClearBuffer(void) { printf("\u001bc"); printf("\x1b[3J"); }   //clears screen and console buffer
+CHIZL_COLORS_API void ResetColor(void) 
+{ 
+    printf("\x1b[0m"); 
+    fflush(stdout); 
+}
+CHIZL_COLORS_API void ClearBuffer(void) 
+{ 
+    printf("\x1b%c\x1b[3J", 'c'); 
+    fflush(stdout); 
+}
 

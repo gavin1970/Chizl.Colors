@@ -56,7 +56,7 @@ extern "C" {
     /// <summary>
     /// For Console use only, this clears the full console buffer, back to a blank screen.
     /// </summary>
-    // CHIZL_COLORS_API void ClearBuffer(void);
+    CHIZL_COLORS_API void ClearBuffer(void);
 
 // --- End of "extern C" block ---
 #ifdef __cplusplus

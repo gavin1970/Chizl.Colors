@@ -19,11 +19,15 @@ namespace CSharpConsole
 
         static void Main(string[] args)
         {
+            AnyKey("This console buffer will be clear on any key being pressed.", rgbCyan);
+            ColorApi.ClearBuffer();
+
             ConsoleColorPrintDemo();
             ColorConversionDemo();
             
             // with color, use NULL instead for no color.
             AnyKey("Press any key to exit...", rgbRed);
+            ColorApi.ClearBuffer();
         }
 
         static void SetColors(RgbColor bg, RgbColor fg)

@@ -88,4 +88,7 @@ internal static class ColorApi
 
     [DllImport(DllName)]
     public static extern void ResetColor();
+
+    [DllImport(DllName)]
+    public static extern void ClearBuffer();
 }

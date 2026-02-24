@@ -1,10 +1,10 @@
-# Chizl.Colors
-
-A lightweight, cross-platform C/C++ library for color manipulation and console color rendering with 24-bit true color support.
-
 [![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://github.com/gavin1970/Chizl.Colors)
 [![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux-lightgrey.svg)](https://github.com/gavin1970/Chizl.Colors)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)<br/>
+[![Target Frameworks](https://img.shields.io/badge/target%20frameworks-c%20%7C%20cplusplus%20%7C%20.net-purple)](https://dotnet.microsoft.com/)
+
+A lightweight, cross-platform C/C++ library with .NET interop for color manipulation and console color rendering with 24-bit true color support.
+
 
 ## Features
 

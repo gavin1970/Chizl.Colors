@@ -27,6 +27,9 @@ static BOOL CreateHeader(void);
 int main(void)
 {
     EnableVT();
+    AnyKey("This console buffer will be clear on any key being pressed.\n\nPress any key to clear...\n\n", &rgbCyan);
+    ClearBuffer();
+
     if (!CreateHeader())
     {
 		printf("Failed to create header.\n");
