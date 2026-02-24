@@ -61,8 +61,10 @@ int main() {
 	// Set console foreground color
 	SetFgColorEx(cyan);
 	printf("This text is cyan!\n");
+	// Reset to default console colors
 	ResetColor();
-
+	// Clear the console buffer
+	ClearBuffer();
 	return 0;
 }
 ```
@@ -83,6 +85,8 @@ SetColorsEx(cyan, new RgbColor { alpha = 255, red = 0, green = 0, blue = 0 });
 Console.WriteLine("Cyan text on black background!"); 
 // Reset to default console colors
 ResetColor();
+// Clear the console buffer
+ClearBuffer();
 ```
 
 ## API Reference
@@ -124,6 +128,9 @@ ResetColor();
 * `void ResetColor(void)`
 	* Resets foreground and background to console defaults.
 
+* `void ClearBuffer(void)`
+	* Clears the console buffer and resets cursor position.
+
 ### Format Conversions
 
 * `char* RgbToRgbHex(RgbColor clr, unsigned int includeAlpha)`
@@ -163,6 +170,8 @@ printf("Colored text!\n");
 
 // Reset to default console colors
 ResetColor();
+// Clear the console buffer
+ClearBuffer();
 ```
 
 ### C# .NET Example
@@ -189,6 +198,8 @@ Console.WriteLine("Colored text!");
 
 // Reset to default console colors
 ColorApi.ResetColor();
+// Clear the console buffer
+ColorApi.ClearBuffer();
 ```
 
 ## Building

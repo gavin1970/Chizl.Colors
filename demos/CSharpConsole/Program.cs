@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+﻿using static ColorApi;
 using System.Text;
 
 namespace CSharpConsole
@@ -20,26 +20,26 @@ namespace CSharpConsole
         static void Main(string[] args)
         {
             AnyKey("This console buffer will be clear on any key being pressed.", rgbCyan);
-            ColorApi.ClearBuffer();
+            ClearBuffer();
 
             ConsoleColorPrintDemo();
             ColorConversionDemo();
             
             // with color, use NULL instead for no color.
             AnyKey("Press any key to exit...", rgbRed);
-            ColorApi.ClearBuffer();
+            ClearBuffer();
         }
 
         static void SetColors(RgbColor bg, RgbColor fg)
         {
             if (fg.alpha != 0 && bg.alpha != 0)
-                ColorApi.SetColorsEx(bg, fg);
+                SetColorsEx(bg, fg);
             else if (fg.alpha != 0)
-                ColorApi.SetFgColorEx(fg);
+                SetFgColorEx(fg);
             else if (bg.alpha != 0)
-                ColorApi.SetBgColorEx(bg);
+                SetBgColorEx(bg);
             else
-                ColorApi.ResetColor();
+                ResetColor();
         }
 
         static void ColorConversionDemo()
@@ -57,17 +57,17 @@ namespace CSharpConsole
             var pad = " ";
             var sb = new StringBuilder();
 
-            var hsv = ColorApi.RgbToHsv(clr);
-            var hsl = ColorApi.RgbToHsl(clr);
+            var hsv = RgbToHsv(clr);
+            var hsl = RgbToHsl(clr);
 
-            var ahex = ColorApi.RgbToRgbHex(clr, true);
-            var hex = ColorApi.RgbToRgbHex(clr, false);
+            var ahex = RgbToRgbHex(clr, true);
+            var hex = RgbToRgbHex(clr, false);
 
-            var aDec = ColorApi.RgbToRgbDec(clr);
-            var dec = ColorApi.RgbToArgbDec(clr);
+            var aDec = RgbToRgbDec(clr);
+            var dec = RgbToArgbDec(clr);
 
-            var hsv_rev = ColorApi.HsvToRgb(hsv);
-            var hsl_rev = ColorApi.HslToRgb(hsl);
+            var hsv_rev = HsvToRgb(hsv);
+            var hsl_rev = HslToRgb(hsl);
 
             sb.AppendLine($"{pad} --- Testing {title} - {hex} Conversions ---");
 
@@ -130,7 +130,7 @@ namespace CSharpConsole
 
             SetColors(bg, fg);
             Console.Write(msg);      // Use threadsafe, and insure not extra % was uncaught.
-            ColorApi.ResetColor();   // resets foreground and background color to console default colors.
+            ResetColor();   // resets foreground and background color to console default colors.
         }
 
         static void AnyKey(string msg, RgbColor fg)
