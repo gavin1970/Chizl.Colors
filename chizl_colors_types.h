@@ -55,7 +55,6 @@ typedef struct {
     double raw_lightness;   // This is the RAW version of lightness, instead of auto multiplying 100.  Raw lightness values provides better accuracy when converting to RGB.
 } HslSpace;
 
-
 /// <summary>
 /// The CIE XYZ color space is one of the earliest mathematical representation of all colors visible to the human eye, serving as a standard reference for other color spaces. 
 /// It's defined by three imaginary primary colors (X, Y, and Z), where Y represents luminance (brightness), and X and Z represent chromaticity (color). 
@@ -68,5 +67,33 @@ typedef struct {
     double y;               // 0.0 - 100.0
     double z;               // 0.0 - 100.0
 } XyzSpace;
+
+/// <summary>
+/// Represents a color in the CIELAB (L*a*b*) color space.
+/// </summary>
+typedef struct {
+    double l;               // 0.0 - 100.0
+    double a;               // -128.0 - 127.0
+    double b;               // -128.0 - 127.0
+} LabSpace;
+
+/// <summary>
+/// Represents a white point in three-dimensional color space.
+/// </summary>
+typedef struct { 
+    double x;
+    double y;
+    double z;
+} WhitePoint;
+
+/// <summary>
+/// A constant representing the D65 standard illuminant white point.
+/// </summary>
+extern const WhitePoint WP_D65;
+
+/// <summary>
+/// Represents the D65 standard illuminant white point with full precision.
+/// </summary>
+extern const WhitePoint WP_D65_FULL;
 
 #endif // CHIZL_COLORS_TYPES_H

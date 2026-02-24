@@ -5,11 +5,14 @@
 
 const RgbColor rgbRed = { 255, 255, 0, 0 };
 const RgbColor rgbBlue = { 255, 0, 0, 255 };
+const RgbColor rgbViolet = { 255, 127, 0, 255 };
 const RgbColor rgbYellow = { 255, 255, 255, 0 };
 const RgbColor rgbCyan = { 255, 0, 255, 255 };
 const RgbColor rgbAshRose = { 255, 181, 129, 125 };
 const RgbColor rgbBlack = { 255, 0, 0, 0 };
 const RgbColor rgbWhite = { 255, 255, 255, 255 };
+const WhitePointType d64_Full_Type = WPID_D65_FULL;
+const WhitePointType d64_Type = WPID_D65;
 const char* welcomeToDemo = " Welcome to the C Console Color Demo! ";
 
 static void ColorConversionDemo(void);
@@ -55,6 +58,8 @@ static void SetColors(const RgbColor* bg, const RgbColor* fg) {
 /// </summary>
 static void ColorConversionDemo(void)
 {
+    ShowColorInfo(rgbBlue, rgbWhite, "Blue - #0000FF");
+    ShowColorInfo(rgbViolet, rgbWhite, "Violet - #7F00FF");
     ShowColorInfo(rgbCyan, rgbBlack, "Cyan - #00FFFF");
     ShowColorInfo(rgbAshRose, rgbWhite, "Ash Rose - #B5817D");
 
@@ -71,6 +76,8 @@ static void ShowColorInfo(RgbColor bgColor, RgbColor fgColor, char* title) {
     HsvSpace hsv = RgbToHsv(bgColor);
     HslSpace hsl = RgbToHsl(bgColor);
     XyzSpace xyz = RgbToXyz(bgColor);
+    LabSpace labFull = XyzToLabEx(xyz, d64_Full_Type);
+    LabSpace lab64 = XyzToLabEx(xyz, d64_Type);
 
     RgbColor hsv_rt = HsvToRgb(hsv);
     RgbColor hsl_rt = HslToRgb(hsl);
@@ -85,6 +92,8 @@ static void ShowColorInfo(RgbColor bgColor, RgbColor fgColor, char* title) {
     PrintLine("  - HSL: H:%.2f, S:%.2f, L:%.2f, Raw:%f", hsl.hue, hsl.saturation, hsl.lightness, hsl.raw_lightness);
     PrintLine("  - HSV: H:%.2f, S:%.2f, V:%.2f, Raw:%f", hsv.hue, hsv.saturation, hsv.value, hsv.raw_value);
     PrintLine("  - XYZ: X:%.2f, Y:%.2f, Z:%.2f", xyz.x, xyz.y, xyz.z);
+    PrintLine("  - LAB_64:   L:%.4f, A:%.4f, B:%.4f", lab64.l, lab64.a, lab64.b);
+    PrintLine("  - LAB_FULL: L:%.4f, A:%.4f, B:%.4f", labFull.l, labFull.a, labFull.b);
     PrintLine("  - HEX8: %s", ahex);
     PrintLine("  - HEX6: %s", hex);
 

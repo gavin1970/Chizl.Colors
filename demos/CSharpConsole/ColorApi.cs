@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.InteropServices;
 
 
 [StructLayout(LayoutKind.Sequential)]
@@ -36,6 +37,28 @@ internal struct XyzSpace
     public double z;
 }
 
+[StructLayout(LayoutKind.Sequential)]
+public struct LabSpace
+{
+    public double l;
+    public double a;
+    public double b;
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public struct WhitePoint
+{
+    public double x;
+    public double y;
+    public double z;
+}
+
+public enum WhitePointType : int
+{
+    WPID_D65 = 0,
+    WPID_D65_FULL = 1
+}
+
 internal static class ColorApi
 {
     private const string DllName = "chizl.colors.dll";
@@ -62,10 +85,16 @@ internal static class ColorApi
     [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
     public static extern RgbColor HslToRgb(HslSpace hsl);
 
-    // --- Xyz Conversions ---
+    // --- Xyz / Lab Conversions ---
 
     [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
     public static extern XyzSpace RgbToXyz(RgbColor rgb);
+
+    [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern LabSpace XyzToLabEx(XyzSpace xyz, WhitePointType wp);
+
+    [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern LabSpace XyzToLab(XyzSpace xyz);
 
     // --- Integer / Decimal Conversions ---
 

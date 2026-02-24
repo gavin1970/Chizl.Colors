@@ -11,6 +11,7 @@ namespace CSharpConsole
         static readonly RgbColor rgbEmpty = new RgbColor { alpha = 0, red = 0, green = 0, blue = 0 };
         static readonly RgbColor rgbRed = new RgbColor { alpha = 255, red = 255, green = 0, blue = 0 };
         static readonly RgbColor rgbBlue = new RgbColor { alpha = 255, red = 0, green = 0, blue = 255 };
+        static readonly RgbColor rgbViolet = new RgbColor { alpha = 255, red = 127, green = 0, blue = 255 };
         static readonly RgbColor rgbYellow = new RgbColor { alpha = 255, red = 255, green = 255, blue = 0 };
         static readonly RgbColor rgbCyan = new RgbColor { alpha = 255, red = 0, green = 255, blue = 255 };
         static readonly RgbColor rgbAshRose = new RgbColor { alpha = 255, red = 181, green = 129, blue = 125 };
@@ -45,9 +46,10 @@ namespace CSharpConsole
 
         static void ColorConversionDemo()
         {
+            ShowColorInfo(rgbBlue, rgbWhite, "Blue");
+            ShowColorInfo(rgbViolet, rgbWhite, "Violet");
             ShowColorInfo(rgbCyan, rgbBlack, "Cyan");
             ShowColorInfo(rgbAshRose, rgbWhite, "Ash Rose");
-            ShowColorInfo(rgbBlue, rgbWhite, "Blue");
             Console.WriteLine();
 
             AnyKey("Press any key to continue...", rgbYellow);
@@ -61,6 +63,9 @@ namespace CSharpConsole
             var hsv = RgbToHsv(clr);
             var hsl = RgbToHsl(clr);
             var xyz = RgbToXyz(clr);
+
+            var labFull = XyzToLabEx(xyz, WhitePointType.WPID_D65_FULL);
+            var lab64 = XyzToLabEx(xyz, WhitePointType.WPID_D65);
 
             var ahex = RgbToRgbHex(clr, true);
             var hex = RgbToRgbHex(clr, false);
@@ -77,6 +82,8 @@ namespace CSharpConsole
             sb.AppendLine($"{pad} - HSV: H:{hsv.hue:0.00}, S:{hsv.saturation:0.00}, V:{hsv.value:0.00}, Raw:{hsv.raw_value:0.000000}");
             sb.AppendLine($"{pad} - HSL: H:{hsl.hue:0.00}, S:{hsl.saturation:0.00}, L:{hsl.lightness:0.00}, Raw:{hsl.raw_lightness:0.000000}");
             sb.AppendLine($"{pad} - XYZ: X:{xyz.x:0.00}, Y:{xyz.y:0.00}, Z:{xyz.z:0.00}");
+            sb.AppendLine($"{pad} - LABFull: L:{labFull.l:0.0000}, A:{labFull.a:0.0000}, B:{labFull.b:0.0000}");
+            sb.AppendLine($"{pad} - LAB_D64: L:{lab64.l:0.0000}, A:{lab64.a:0.0000}, B:{lab64.b:0.0000}");
 
             sb.AppendLine($"{pad} - HEX8: {ahex}, Dec: {aDec}");
             sb.AppendLine($"{pad} - HEX6: {hex},   Dec: {dec}");

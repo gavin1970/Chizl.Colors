@@ -60,6 +60,13 @@ int main() {
 	// Convert to XYZ
 	XyzSpace xyz = RgbToXyz(cyan);
 	printf("XYZ: X%.2f, Y:%.2f, Z:%.2f\n", xyz.x, xyz.y, xyz.z);
+	// LabSpace labFull = XyzToLab(xyz); -- default full (d64_Full_Type) precision
+	// Convert XYZ to Lab (full and 64-bit)
+  LabSpace labFull = XyzToLabEx(xyz, d64_Full_Type);
+  printf("LAB FULL D64: L:%.4f, A:%.4f, B:%.4f", labFull.l, labFull.a, labFull.b);
+	// Convert XYZ to Lab (64-bit)
+  LabSpace lab64 = XyzToLabEx(xyz, d64_Type);
+  printf("LAB D64: L:%.4f, A:%.4f, B:%.4f", lab64.l, lab64.a, lab64.b);
 
 	// Set console foreground color
 	SetFgColorEx(cyan);
@@ -85,6 +92,14 @@ Console.WriteLine($"HSL: H:{hsl.hue:0.00}, S:{hsl.saturation:0.00}, L:{hsl.light
 // Convert to XYZ
 var xyz = RgbToXyz(cyan);
 Console.WriteLine($"XYZ: X:{xyz.x:0.00}, Y:{xyz.y:0.00}, Z:{xyz.z:0.00}");
+
+// var labFull = XyzToLab(xyz); -- default full (d64_Full_Type) precision
+// Convert XYZ to Lab (full and 64-bit)
+var labFull = XyzToLabEx(xyz, WhitePointType.WPID_D65_FULL);
+Console.WriteLine($"LAB D64 Full: L:{labFull.l:0.0000}, A:{labFull.a:0.0000}, B:{labFull.b:0.0000}");
+// Convert XYZ to Lab (64-bit)
+var lab64 = XyzToLabEx(xyz, WhitePointType.WPID_D65);
+Console.WriteLine($"LAB D64: L:{lab64.l:0.0000}, A:{lab64.a:0.0000}, B:{lab64.b:0.0000}");
 
 // Set console colors 
 SetColorsEx(cyan, new RgbColor { alpha = 255, red = 0, green = 0, blue = 0 }); 
@@ -118,6 +133,12 @@ ClearBuffer();
 	* Converts RGB to XYZ color space.
 	* **Returns**: `XyzSpace` with X, Y, Z components.
 
+* `LabSpace XyzToLab(XyzSpace xyz)`
+	* Converts XYZ to Lab color space using default full precision (d64_Full_Type).
+
+* `LabSpace XyzToLabEx(XyzSpace xyz, WhitePointType whitePoint)`
+	* Converts XYZ to Lab color space with specified white point type for precision control.
+	
 ### Console Colors
 
 * `void SetColorsEx(RgbColor bg, RgbColor fg)`
@@ -273,7 +294,10 @@ This project is licensed under the MIT License - see the [LICENSE](https://githu
 
 ## Version History
 
-- **1.2.0** - Current release
+- **1.2.1** - Current release
+  - Added LabSpace color space conversions (XYZ to Lab) with use of D64 or D64_Full white point types for precision control.
+
+- **1.2.0**
   - Added XyzSpace color space conversions (RGB to XYZ)
 
 - **1.1.0** 

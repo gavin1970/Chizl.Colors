@@ -4,8 +4,12 @@
 #include <math.h>               // For fmin, fmax, fabs, round, pow
 #include <stdio.h>              // Required for sprintf
 #include <objbase.h>            // For CoTaskMemAlloc
+#include "white_points.h"       // For white point definitions used in XYZ to Lab conversions.
 
 // CIELAB, CIELCh, and CIELUV, and XYZ conversions.
+
+const WhitePoint WP_D65 = { 95.0470, 100.0000, 108.8830 };
+const WhitePoint WP_D65_FULL = { 95.0489, 100.0000, 108.8840 };
 
 static double HueToRgb(double p, double q, double t) {
     if (t < 0.0) t += 1.0;
@@ -168,38 +172,6 @@ CHIZL_COLORS_API RgbColor HslToRgb(HslSpace hsl)
     return rgb;
 }
 
-CHIZL_COLORS_API XyzSpace RgbToXyz(RgbColor rgb)
-{
-    // Normalize R, G, B to the range [0, 1]
-    double r = rgb.red / 255.0;
-    double g = rgb.green / 255.0;
-    double b = rgb.blue / 255.0;
-
-    // Apply gamma correction (sRGB to linear RGB)
-    r = (r > 0.04045) ? pow((r + 0.055) / 1.055, 2.4) : r / 12.92;
-    g = (g > 0.04045) ? pow((g + 0.055) / 1.055, 2.4) : g / 12.92;
-    b = (b > 0.04045) ? pow((b + 0.055) / 1.055, 2.4) : b / 12.92;
-
-    // Convert linear RGB to XYZ using sRGB-specific transformation matrix
-    // These coefficients are for sRGB with D65 illuminant
-    double x = r * 0.4124564 + g * 0.3575761 + b * 0.1804375;
-    double y = r * 0.2126729 + g * 0.7151522 + b * 0.0721750;
-    double z = r * 0.0193339 + g * 0.1191920 + b * 0.9503041;
-
-    // Scale XYZ to 0-100 range for consistency with common representations
-    // If Y is expected to be 100 for white, then X and Z should be scaled accordingly.
-    // The coefficients already produce values in a range where Y for white is ~1.0,
-    // so multiplying by 100 makes Y for white = 100.
-
-    XyzSpace xyz = {
-        x * 100.0,
-        y * 100.0,
-        z * 100.0
-    };
-    return xyz;
-}
-
-
 CHIZL_COLORS_API char* RgbToRgbHex(RgbColor clr, unsigned int includeAlpha) {
     // Hex form: #RRGGBB
     char rgbHex[16] = { 0 };
@@ -234,6 +206,91 @@ CHIZL_COLORS_API int RgbToArgbDec(RgbColor clr)
     unsigned int rgb = (clr.red << 16) | (clr.green << 8) | clr.blue;
     //unsigned int argb = (clr.alpha << 24) | rgb;
     return (int)((clr.alpha << 24) | rgb);
+}
+
+#pragma endregion
+
+#pragma region XYZ, Lab
+static inline double lab_f(double t)
+{
+    if (t < 0.0) t = 0.0;
+
+    const double delta = 6.0 / 29.0;
+    const double delta2 = delta * delta;
+    const double delta3 = delta2 * delta;
+
+    if (t >= delta3)
+        return cbrt(t);
+
+    const double inv_3delta2 = 1.0 / (3.0 * delta2);
+    return (t * inv_3delta2) + (4.0 / 29.0);
+}
+
+static inline LabSpace XyzToLab_White(XyzSpace xyz, WhitePoint wp)
+{
+    // Normalize XYZ by reference white (XYZ expected 0..100 scale)
+    const double x = xyz.x / wp.x;
+    const double y = xyz.y / wp.y;
+    const double z = xyz.z / wp.z;
+
+    const double fx = lab_f(x);
+    const double fy = lab_f(y);
+    const double fz = lab_f(z);
+
+    LabSpace lab = {
+        (116.0 * fy) - 16.0,
+        500.0 * (fx - fy),
+        200.0 * (fy - fz)
+    };
+
+    return lab;
+}
+
+CHIZL_COLORS_API LabSpace XyzToLabEx(XyzSpace xyz, WhitePointType wp)
+{    
+    switch (wp)
+    {
+        case WPID_D65_FULL: 
+            return XyzToLab_White(xyz, WP_D65_FULL);
+        case WPID_D65:
+        default:            
+            return XyzToLab_White(xyz, WP_D65);
+    }
+}
+
+CHIZL_COLORS_API LabSpace XyzToLab(XyzSpace xyz)
+{
+    return XyzToLab_White(xyz, WP_D65_FULL);     // or WP_D65_FULL if you want that default
+}
+
+CHIZL_COLORS_API XyzSpace RgbToXyz(RgbColor rgb)
+{
+    // Normalize R, G, B to the range [0, 1]
+    double r = rgb.red / 255.0;
+    double g = rgb.green / 255.0;
+    double b = rgb.blue / 255.0;
+
+    // Apply gamma correction (sRGB to linear RGB)
+    r = (r > 0.04045) ? pow((r + 0.055) / 1.055, 2.4) : r / 12.92;
+    g = (g > 0.04045) ? pow((g + 0.055) / 1.055, 2.4) : g / 12.92;
+    b = (b > 0.04045) ? pow((b + 0.055) / 1.055, 2.4) : b / 12.92;
+
+    // Convert linear RGB to XYZ using sRGB-specific transformation matrix
+    // These coefficients are for sRGB with D65 illuminant
+    double x = r * 0.4124564 + g * 0.3575761 + b * 0.1804375;
+    double y = r * 0.2126729 + g * 0.7151522 + b * 0.0721750;
+    double z = r * 0.0193339 + g * 0.1191920 + b * 0.9503041;
+
+    // Scale XYZ to 0-100 range for consistency with common representations
+    // If Y is expected to be 100 for white, then X and Z should be scaled accordingly.
+    // The coefficients already produce values in a range where Y for white is ~1.0,
+    // so multiplying by 100 makes Y for white = 100.
+    XyzSpace xyz = {
+        x * 100.0,
+        y * 100.0,
+        z * 100.0
+    };
+    return xyz;
 }
 
 #pragma endregion

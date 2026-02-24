@@ -13,6 +13,15 @@
 extern "C" {
 #endif
 
+/// <summary>
+/// Enumeration of standard illuminant white point types for color space calculations.
+/// </summary>
+typedef enum {
+    WPID_D65 = 0,
+    WPID_D65_FULL = 1
+    // later: D50, D55, etc.
+} WhitePointType;
+
 #pragma region HSV
     /// <summary>
     /// Converts an RGB color to its HSV (Hue, Saturation, Value) equivalent.
@@ -47,13 +56,33 @@ extern "C" {
     CHIZL_COLORS_API RgbColor HslToRgb(HslSpace hsl);
 #pragma endregion
 
-#pragma region HSL
+#pragma region Xyz, Lab
     /// <summary>
     /// Converts an RGB color to the CIE XYZ color space.
     /// </summary>
     /// <param name="rgb">The RGB color to convert.</param>
     /// <returns>The color represented in the CIE XYZ color space.</returns>
     CHIZL_COLORS_API XyzSpace RgbToXyz(RgbColor rgb);
+    /// <summary>
+    /// Converts a color from XYZ color space to Lab color space.
+    /// </summary>
+    /// <param name="xyz">The color in XYZ color space to convert.</param>
+    /// <returns>The color converted to Lab color space.</returns>
+    CHIZL_COLORS_API LabSpace XyzToLab(XyzSpace xyz);
+    /// <summary>
+    /// Converts a color from XYZ color space to LAB color space using a specified white point.
+    /// </summary>
+    /// <param name="xyz">The color in XYZ color space to convert.</param>
+    /// <param name="wp">The white point type to use for the conversion.</param>
+    /// <returns>The color converted to LAB color space.</returns>
+    CHIZL_COLORS_API LabSpace XyzToLabEx(XyzSpace xyz, WhitePointType wp);
+    /// <summary>
+    /// Converts a color from XYZ color space to LAB color space using a specified white point.
+    /// </summary>
+    /// <param name="xyz">The color in XYZ color space to convert.</param>
+    /// <param name="wp">The white point to use for the conversion.</param>
+    /// <returns>The color converted to LAB color space.</returns>
+    //CHIZL_COLORS_API LabSpace XyzToLab_White(XyzSpace xyz, WhitePoint wp);
 #pragma endregion
 
 #pragma region Other
