@@ -84,9 +84,7 @@ CHIZL_COLORS_API chizl_color32 RgbToRgbDec(RgbColor clr);
 CHIZL_COLORS_API chizl_color32 RgbToArgbDec(RgbColor rgb);
 //CHIZL_COLORS_API void ChizlFree(void* p);
 
-char returnBuffer[256];
-
-    // --- End of "extern C" block ---
+// --- End of "extern C" block ---
 #ifdef __cplusplus
 }
 #endif
