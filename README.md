@@ -6,6 +6,8 @@
 A lightweight, cross-platform C/C++ library with .NET interop for color manipulation and console color rendering with 24-bit true color support.
 
 
+---
+
 ## Features
 
 - **Color Space Conversions**: Convert between RGB, HSV, and HSL color spaces
@@ -14,6 +16,8 @@ A lightweight, cross-platform C/C++ library with .NET interop for color manipula
 - **Cross-Language Support**: Native C/C++ library with .NET interop examples
 - **High Precision**: Raw value storage for lossless round-trip conversions
 - **Hex & Decimal Export**: Convert RGB colors to hex strings and decimal integers
+
+---
 
 ## Table of Contents
 
@@ -31,6 +35,8 @@ A lightweight, cross-platform C/C++ library with .NET interop for color manipula
 - [Contributing](#contributing)
 - [License](#license)
 
+---
+
 ## Installation
 
 ### Prerequisites
@@ -46,6 +52,14 @@ A lightweight, cross-platform C/C++ library with .NET interop for color manipula
 3. Build the solution (F7)
 4. The DLL will be output to the `bin` directory
 
+### Build Output
+
+- **Library**: `Chizl.Colors.dll` and `Chizl.Colors.lib`
+- **C Demo**: `DemoConsole.exe`
+- **C# Demo**: `CSharpConsole.exe`
+
+---
+
 ## Quick Start
 
 ### C/C++ Usage
@@ -60,13 +74,14 @@ int main() {
 	// Convert to XYZ
 	XyzSpace xyz = RgbToXyz(cyan);
 	printf("XYZ: X%.2f, Y:%.2f, Z:%.2f\n", xyz.x, xyz.y, xyz.z);
+	
 	// LabSpace labFull = XyzToLab(xyz); -- default full (d64_Full_Type) precision
 	// Convert XYZ to Lab (full and 64-bit)
-  LabSpace labFull = XyzToLabEx(xyz, d64_Full_Type);
-  printf("LAB FULL D64: L:%.4f, A:%.4f, B:%.4f", labFull.l, labFull.a, labFull.b);
+	LabSpace labFull = XyzToLabEx(xyz, d64_Full_Type);
+	printf("LAB FULL D64: L:%.4f, A:%.4f, B:%.4f", labFull.l, labFull.a, labFull.b);
 	// Convert XYZ to Lab (64-bit)
-  LabSpace lab64 = XyzToLabEx(xyz, d64_Type);
-  printf("LAB D64: L:%.4f, A:%.4f, B:%.4f", lab64.l, lab64.a, lab64.b);
+	LabSpace lab64 = XyzToLabEx(xyz, d64_Type);
+	printf("LAB D64: L:%.4f, A:%.4f, B:%.4f", lab64.l, lab64.a, lab64.b);
 
 	// Set console foreground color
 	SetFgColorEx(cyan);
@@ -109,6 +124,8 @@ ResetColor();
 // Clear the console buffer
 ClearBuffer();
 ```
+
+---
 
 ## API Reference
 
@@ -176,6 +193,8 @@ ClearBuffer();
 * `int RgbToArgbDec(RgbColor clr)`
 	* Converts RGB to decimal integer with alpha (0xAARRGGBB).
 
+---
+
 ## Usage Examples
 
 ### C/C++ Example
@@ -233,6 +252,8 @@ ColorApi.ResetColor();
 ColorApi.ClearBuffer();
 ```
 
+---
+
 ## Building
 
 ### Visual Studio 2022
@@ -241,13 +262,7 @@ ColorApi.ClearBuffer();
 2. Select desired configuration (Debug/Release)
 3. Build Solution (Ctrl+Shift+B)
 
-### Build Output
-
-- **Library**: `Chizl.Colors.dll` and `Chizl.Colors.lib`
-- **C Demo**: `DemoConsole.exe`
-- **C# Demo**: `CSharpConsole.exe`
-
-## Project Structure
+---
 
 ## Color Space Information
 
@@ -272,6 +287,8 @@ ColorApi.ClearBuffer();
 
 > **Note**: HSV/HSL have fewer combinations than RGB, so conversions may not be perfectly reversible. This library stores `raw_value`/`raw_lightness` to improve round-trip accuracy.
 
+---
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
@@ -282,15 +299,21 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
+---
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/gavin1970/Chizl.Colors/blob/master/LICENSE.md) file for details.
+
+---
 
 ## Acknowledgments
 
 - ANSI escape sequence support for cross-platform terminal colors
 - Inspired by the need for true-color console applications
 - Built with C++14 for broad compatibility
+
+---
 
 ## Version History
 
