@@ -1,4 +1,4 @@
-[![Version](https://img.shields.io/badge/version-1.2.0-blue.svg)](https://github.com/gavin1970/Chizl.Colors)
+[![Version](https://img.shields.io/badge/version-1.2.1-blue.svg)](https://github.com/gavin1970/Chizl.Colors)
 [![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux-lightgrey.svg)](https://github.com/gavin1970/Chizl.Colors)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/gavin1970/Chizl.Colors/blob/master/LICENSE.md)<br/>
 [![Target Frameworks](https://img.shields.io/badge/target%20frameworks-c%20%7C%20cplusplus%20%7C%20.net-purple)](https://dotnet.microsoft.com/)
