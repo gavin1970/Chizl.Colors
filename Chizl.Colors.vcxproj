@@ -33,6 +33,7 @@
     <Image Include="console_examples.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="LICENSE.md" />
     <None Include="README.md" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

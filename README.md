@@ -1,6 +1,6 @@
 [![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://github.com/gavin1970/Chizl.Colors)
 [![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux-lightgrey.svg)](https://github.com/gavin1970/Chizl.Colors)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)<br/>
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/gavin1970/Chizl.Colors/blob/master/LICENSE.md)<br/>
 [![Target Frameworks](https://img.shields.io/badge/target%20frameworks-c%20%7C%20cplusplus%20%7C%20.net-purple)](https://dotnet.microsoft.com/)
 
 A lightweight, cross-platform C/C++ library with .NET interop for color manipulation and console color rendering with 24-bit true color support.
@@ -149,7 +149,7 @@ ClearBuffer();
 
 ### C/C++ Example
 
-See the full C console demo in [`DemoConsole/main.c`](./DemoConsole/main.c):
+See the full C console demo in [`DemoConsole/main.c`](https://github.com/gavin1970/Chizl.Colors/blob/master/DemoConsole/main.c):
 ```C
 #include "chizl_colors.h"
 const RgbColor rgbCyan = { 255, 0, 255, 255 }; 
@@ -176,7 +176,7 @@ ClearBuffer();
 
 ### C# .NET Example
 
-See the full .NET demo in [`demos/CSharpConsole/Program.cs`](./demos/CSharpConsole/Program.cs):
+See the full .NET demo in [`demos/CSharpConsole/Program.cs`](https://github.com/gavin1970/Chizl.Colors/blob/master/demos/CSharpConsole/Program.cs):
 
 ```C#
 static readonly RgbColor rgbCyan = new RgbColor { alpha = 255, red = 0, green = 255, blue = 255 }; 
@@ -253,7 +253,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/gavin1970/Chizl.Colors/blob/master/LICENSE.md) file for details.
 
 ## Acknowledgments
 
