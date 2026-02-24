@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using System.Text;
+﻿using System.Text;
 using static ColorApi;
 
 namespace CSharpConsole
@@ -70,8 +69,8 @@ namespace CSharpConsole
             var ahex = RgbToRgbHex(clr, true);
             var hex = RgbToRgbHex(clr, false);
 
-            var aDec = RgbToRgbDec(clr);
-            var dec = RgbToArgbDec(clr);
+            int dec = unchecked((int)RgbToRgbDec(clr));
+            int aDec = unchecked((int)RgbToArgbDec(clr));
 
             var hsv_rev = HsvToRgb(hsv);
             var hsl_rev = HslToRgb(hsl);

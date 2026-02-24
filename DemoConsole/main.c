@@ -84,6 +84,8 @@ static void ShowColorInfo(RgbColor bgColor, RgbColor fgColor, char* title) {
 
     char* ahex = RgbToRgbHex(bgColor, 1);
     char* hex = RgbToRgbHex(bgColor, 0);
+    int aDec = RgbToArgbDec(bgColor);
+    int dec = RgbToRgbDec(bgColor);
 
     SetColorsEx(bgColor, fgColor);
     
@@ -94,8 +96,8 @@ static void ShowColorInfo(RgbColor bgColor, RgbColor fgColor, char* title) {
     PrintLine("  - XYZ: X:%.2f, Y:%.2f, Z:%.2f", xyz.x, xyz.y, xyz.z);
     PrintLine("  - LAB_64:   L:%.4f, A:%.4f, B:%.4f", lab64.l, lab64.a, lab64.b);
     PrintLine("  - LAB_FULL: L:%.4f, A:%.4f, B:%.4f", labFull.l, labFull.a, labFull.b);
-    PrintLine("  - HEX8: %s", ahex);
-    PrintLine("  - HEX6: %s", hex);
+    PrintLine("  - HEX8: %s (%i)", ahex, aDec);
+    PrintLine("  - HEX6: %s (%i)", hex, dec);
 
     PrintLine("  - HSL Roundtrip -> RGB: (R:%u, G:%u, B:%u)", hsl_rt.red, hsl_rt.green, hsl_rt.blue);
     PrintLine("  - HSV Roundtrip -> RGB: (R:%u, G:%u, B:%u)", hsv_rt.red, hsv_rt.green, hsv_rt.blue);

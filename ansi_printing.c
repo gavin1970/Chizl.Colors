@@ -1,5 +1,6 @@
 // ansi_printing.c
-#include <stdio.h>      // Required for sprintf
+#include <string.h>             // For strlen, strcpy_s
+#include <stdio.h>              // Required for sprintf
 #include "ansi_printing.h"
 #include "common.h"
 

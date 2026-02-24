@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Runtime.InteropServices;
-
+﻿using System.Runtime.InteropServices;
 
 [StructLayout(LayoutKind.Sequential)]
 internal struct RgbColor
@@ -99,10 +97,10 @@ internal static class ColorApi
     // --- Integer / Decimal Conversions ---
 
     [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
-    public static extern int RgbToRgbDec(RgbColor clr);
+    public static extern uint RgbToArgbDec(RgbColor rgb);
 
     [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
-    public static extern int RgbToArgbDec(RgbColor clr);
+    public static extern uint RgbToRgbDec(RgbColor rgb);
 
     // --- Hex String Conversion (The special one!) ---
 

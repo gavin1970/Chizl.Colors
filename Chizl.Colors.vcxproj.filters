@@ -36,6 +36,9 @@
     <ClCompile Include="color_conversions.c">
       <Filter>Source Files\public</Filter>
     </ClCompile>
+    <ClCompile Include="white_points.c">
+      <Filter>Source Files\public</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">
@@ -51,6 +54,9 @@
       <Filter>Header Files\public</Filter>
     </ClInclude>
     <ClInclude Include="chizl_colors_types.h">
+      <Filter>Header Files\public</Filter>
+    </ClInclude>
+    <ClInclude Include="white_points.h">
       <Filter>Header Files\public</Filter>
     </ClInclude>
   </ItemGroup>

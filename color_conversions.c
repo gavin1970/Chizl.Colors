@@ -1,15 +1,12 @@
 // color_conversions.c
 #include "color_conversions.h"
 #include "common.h"
+#include <string.h>             // For strlen, strcpy_s
 #include <math.h>               // For fmin, fmax, fabs, round, pow
 #include <stdio.h>              // Required for sprintf
 #include <objbase.h>            // For CoTaskMemAlloc
-#include "white_points.h"       // For white point definitions used in XYZ to Lab conversions.
 
 // CIELAB, CIELCh, and CIELUV, and XYZ conversions.
-
-const WhitePoint WP_D65 = { 95.0470, 100.0000, 108.8830 };
-const WhitePoint WP_D65_FULL = { 95.0489, 100.0000, 108.8840 };
 
 static double HueToRgb(double p, double q, double t) {
     if (t < 0.0) t += 1.0;
@@ -20,7 +17,6 @@ static double HueToRgb(double p, double q, double t) {
     return p;
 }
 
-#pragma region HSV
 CHIZL_COLORS_API HsvSpace RgbToHsv(RgbColor rgb)
 {
     // Convert 0-255 to 0.0-1.0
@@ -97,9 +93,7 @@ CHIZL_COLORS_API RgbColor HsvToRgb(HsvSpace hsv)
     };
     return rgb;
 }
-#pragma endregion
 
-#pragma region HSL
 CHIZL_COLORS_API HslSpace RgbToHsl(RgbColor rgb)
 {
     // Convert 0-255 to 0.0-1.0
@@ -176,15 +170,17 @@ CHIZL_COLORS_API char* RgbToRgbHex(RgbColor clr, unsigned int includeAlpha) {
     // Hex form: #RRGGBB
     char rgbHex[16] = { 0 };
 
-    //snprintf(rgbHex, sizeof(rgbHex), "#%02X%02X%02X", clr.red, clr.green, clr.blue);
-
     if (includeAlpha)
         snprintf(rgbHex, sizeof(rgbHex), "#%08X", RgbToArgbDec(clr));
     else
         snprintf(rgbHex, sizeof(rgbHex), "#%06X", RgbToRgbDec(clr));
 
     int len = (int)strlen(rgbHex) + 1;
+#ifdef _WIN32
     char* buffer = (char*)CoTaskMemAlloc(len);
+#else
+    char* buffer = (char*)malloc(len);
+#endif
     
     if (buffer == NULL)
         return NULL;
@@ -193,24 +189,22 @@ CHIZL_COLORS_API char* RgbToRgbHex(RgbColor clr, unsigned int includeAlpha) {
     return buffer;
 }
 
-CHIZL_COLORS_API int RgbToRgbDec(RgbColor clr)
+
+CHIZL_COLORS_API chizl_color32 RgbToRgbDec(RgbColor clr)
 {
     // Decimal form: (r, g, b)
-    //unsigned int rgb = (clr.red << 16) | (clr.green << 8) | clr.blue;
-    return (int)((clr.red << 16) | (clr.green << 8) | clr.blue);
+    uint32_t rgb = (clr.red << 16) | (clr.green << 8) | clr.blue;
+    return rgb;
 }
 
-CHIZL_COLORS_API int RgbToArgbDec(RgbColor clr)
+CHIZL_COLORS_API chizl_color32 RgbToArgbDec(RgbColor clr)
 {
     // Decimal form: (r, g, b)
     unsigned int rgb = (clr.red << 16) | (clr.green << 8) | clr.blue;
-    //unsigned int argb = (clr.alpha << 24) | rgb;
-    return (int)((clr.alpha << 24) | rgb);
+    uint32_t argb = (clr.alpha << 24) | rgb;
+    return argb;
 }
 
-#pragma endregion
-
-#pragma region XYZ, Lab
 static inline double lab_f(double t)
 {
     if (t < 0.0) t = 0.0;
@@ -293,4 +287,3 @@ CHIZL_COLORS_API XyzSpace RgbToXyz(RgbColor rgb)
     return xyz;
 }
 
-#pragma endregion
