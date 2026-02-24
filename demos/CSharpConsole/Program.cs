@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Runtime.InteropServices;
+using System.Text;
 using static ColorApi;
 
 namespace CSharpConsole
@@ -66,8 +67,11 @@ namespace CSharpConsole
             var labFull = XyzToLabEx(xyz, WhitePointType.WPID_D65_FULL);
             var lab64 = XyzToLabEx(xyz, WhitePointType.WPID_D65);
 
-            var ahex = RgbToRgbHex(clr, true);
-            var hex = RgbToRgbHex(clr, false);
+            var pAhex = RgbToRgbHex(clr, true);
+            var pHex = RgbToRgbHex(clr, false);
+
+            var ahex = PtrToAnsiAndFree(pAhex);     //converts nint to string and frees the pointer, REQUIRED.
+            var hex = PtrToAnsiAndFree(pHex);       //converts nint to string and frees the pointer, REQUIRED.
 
             int dec = unchecked((int)RgbToRgbDec(clr));
             int aDec = unchecked((int)RgbToArgbDec(clr));
@@ -158,6 +162,20 @@ namespace CSharpConsole
                 //set cursor back to start of message.
                 Console.CursorTop = curLoc[1];
                 Console.CursorLeft = curLoc[0];
+            }
+        }
+
+        static string PtrToAnsiAndFree(nint p)
+        {
+            if (p == 0) return string.Empty;
+
+            try
+            {
+                return Marshal.PtrToStringAnsi(p) ?? string.Empty;
+            }
+            finally
+            {
+                ChizlFree(p);
             }
         }
     }

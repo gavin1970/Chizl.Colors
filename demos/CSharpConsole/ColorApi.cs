@@ -104,9 +104,10 @@ internal static class ColorApi
 
     // --- Hex String Conversion (The special one!) ---
 
+    //[DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
+    //[return: MarshalAs(UnmanagedType.LPStr)]
     [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-    [return: MarshalAs(UnmanagedType.LPStr)]
-    public static extern string RgbToRgbHex(RgbColor clr, bool includeAlpha);
+    internal static extern nint RgbToRgbHex(RgbColor rgb, bool includeAlpha);
 
     // --- Set Console Colors by struct ---
 
@@ -125,6 +126,9 @@ internal static class ColorApi
     public static extern void SetBgColor(uint red, uint green, uint blue);
 
     // --- Reset Foreground and Background Colors ---
+
+    [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern void ChizlFree(IntPtr ptr);
 
     [DllImport(DllName)]
     public static extern void ResetColor();

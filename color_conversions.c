@@ -166,29 +166,28 @@ CHIZL_COLORS_API RgbColor HslToRgb(HslSpace hsl)
     return rgb;
 }
 
-CHIZL_COLORS_API char* RgbToRgbHex(RgbColor clr, unsigned int includeAlpha) {
-    // Hex form: #RRGGBB
+CHIZL_COLORS_API char* RgbToRgbHex(RgbColor clr, unsigned int includeAlpha)
+{
     char rgbHex[16] = { 0 };
 
     if (includeAlpha)
-        snprintf(rgbHex, sizeof(rgbHex), "#%08X", RgbToArgbDec(clr));
+        snprintf(rgbHex, sizeof(rgbHex), "#%08X", (unsigned)RgbToArgbDec(clr));
     else
-        snprintf(rgbHex, sizeof(rgbHex), "#%06X", RgbToRgbDec(clr));
+        snprintf(rgbHex, sizeof(rgbHex), "#%06X", (unsigned)RgbToRgbDec(clr));
 
     int len = (int)strlen(rgbHex) + 1;
-#ifdef _WIN32
-    char* buffer = (char*)CoTaskMemAlloc(len);
-#else
-    char* buffer = (char*)malloc(len);
-#endif
-    
-    if (buffer == NULL)
-        return NULL;
 
-    strcpy_s(buffer, len, rgbHex);
+    char* buffer = (char*)malloc((size_t)len);
+    if (!buffer) return NULL;
+
+#ifdef _WIN32
+    strcpy_s(buffer, (size_t)len, rgbHex);
+#else
+    memcpy(buffer, rgbHex, (size_t)len);
+#endif
+
     return buffer;
 }
-
 
 CHIZL_COLORS_API chizl_color32 RgbToRgbDec(RgbColor clr)
 {
@@ -287,3 +286,4 @@ CHIZL_COLORS_API XyzSpace RgbToXyz(RgbColor rgb)
     return xyz;
 }
 
+CHIZL_COLORS_API void ChizlFree(void* p) { free(p); }

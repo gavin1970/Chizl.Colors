@@ -76,13 +76,28 @@ CHIZL_COLORS_API LabSpace XyzToLab(XyzSpace xyz);
 /// <returns>The color converted to LAB color space.</returns>
 CHIZL_COLORS_API LabSpace XyzToLabEx(XyzSpace xyz, WhitePointType wp);
 
-    
+/// <summary>
+/// Converts an RGB color to its hexadecimal string representation.
+/// </summary>
+/// <param name="clr">The RGB color to convert.</param>
+/// <param name="includeAlpha">Flag indicating whether to include the alpha channel in the output (non-zero to include, zero to exclude).</param>
+/// <returns>A pointer to a null-terminated string containing the hexadecimal representation of the RGB color. The caller is responsible for managing the memory of the returned string.</returns>
 CHIZL_COLORS_API char* RgbToRgbHex(RgbColor clr, unsigned int includeAlpha);
 //CHIZL_COLORS_API uint32_t RgbToRgbDec(RgbColor clr);
 //CHIZL_COLORS_API uint32_t  RgbToArgbDec(RgbColor clr);
 CHIZL_COLORS_API chizl_color32 RgbToRgbDec(RgbColor clr);
+/// <summary>
+/// Converts an RGB color to a 32-bit ARGB color with full opacity.
+/// </summary>
+/// <param name="rgb">The RGB color to convert.</param>
+/// <returns>A 32-bit ARGB color value with the alpha channel set to fully opaque.</returns>
 CHIZL_COLORS_API chizl_color32 RgbToArgbDec(RgbColor rgb);
-//CHIZL_COLORS_API void ChizlFree(void* p);
+/// <summary>
+/// Frees memory that was previously allocated.
+/// </summary>
+/// <param name="p">Pointer to the memory block to free.</param>
+/// <returns>This function does not return a value.</returns>
+CHIZL_COLORS_API void ChizlFree(void* p);
 
 // --- End of "extern C" block ---
 #ifdef __cplusplus
