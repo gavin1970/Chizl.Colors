@@ -58,11 +58,6 @@ extern "C" {
 
 #pragma region Other
     
-    /*
-    [DllImport("Chizl.Colors.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-    public static extern string GetPersistentString();
-    */
-
     CHIZL_COLORS_API char* RgbToRgbHex(RgbColor clr, unsigned int includeAlpha);
     CHIZL_COLORS_API int RgbToRgbDec(RgbColor clr);
     CHIZL_COLORS_API int RgbToArgbDec(RgbColor clr);

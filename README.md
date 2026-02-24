@@ -273,7 +273,10 @@ This project is licensed under the MIT License - see the [LICENSE](https://githu
 
 ## Version History
 
-- **1.1.0** - Current release
+- **1.2.0** - Current release
+  - Added XyzSpace color space conversions (RGB to XYZ)
+
+- **1.1.0** 
   - Color space conversions (RGB, HSV, HSL)
   - Console color manipulation
   - Hex and decimal format conversions
