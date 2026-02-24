@@ -1,5 +1,6 @@
-﻿using static ColorApi;
+﻿using System.Drawing;
 using System.Text;
+using static ColorApi;
 
 namespace CSharpConsole
 {
@@ -59,6 +60,7 @@ namespace CSharpConsole
 
             var hsv = RgbToHsv(clr);
             var hsl = RgbToHsl(clr);
+            var xyz = RgbToXyz(clr);
 
             var ahex = RgbToRgbHex(clr, true);
             var hex = RgbToRgbHex(clr, false);
@@ -74,6 +76,7 @@ namespace CSharpConsole
             sb.AppendLine($"{pad}'{title}' Color: (R:{clr.red}, G:{clr.green}, B:{clr.blue})");
             sb.AppendLine($"{pad} - HSV: H:{hsv.hue:0.00}, S:{hsv.saturation:0.00}, V:{hsv.value:0.00}, Raw:{hsv.raw_value:0.000000}");
             sb.AppendLine($"{pad} - HSL: H:{hsl.hue:0.00}, S:{hsl.saturation:0.00}, L:{hsl.lightness:0.00}, Raw:{hsl.raw_lightness:0.000000}");
+            sb.AppendLine($"{pad} - XYZ: X:{xyz.x:0.00}, Y:{xyz.y:0.00}, Z:{xyz.z:0.00}");
 
             sb.AppendLine($"{pad} - HEX8: {ahex}, Dec: {aDec}");
             sb.AppendLine($"{pad} - HEX6: {hex},   Dec: {dec}");

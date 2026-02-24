@@ -46,6 +46,16 @@ extern "C" {
     /// <returns>RGB Color</returns>
     CHIZL_COLORS_API RgbColor HslToRgb(HslSpace hsl);
 #pragma endregion
+
+#pragma region HSL
+    /// <summary>
+    /// Converts an RGB color to the CIE XYZ color space.
+    /// </summary>
+    /// <param name="rgb">The RGB color to convert.</param>
+    /// <returns>The color represented in the CIE XYZ color space.</returns>
+    CHIZL_COLORS_API XyzSpace RgbToXyz(RgbColor rgb);
+#pragma endregion
+
 #pragma region Other
     
     /*

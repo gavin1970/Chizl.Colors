@@ -28,6 +28,14 @@ internal struct HslSpace
     public double raw_lightness;
 }
 
+[StructLayout(LayoutKind.Sequential)]
+internal struct XyzSpace
+{
+    public double x;
+    public double y;
+    public double z;
+}
+
 internal static class ColorApi
 {
     private const string DllName = "chizl.colors.dll";
@@ -53,6 +61,11 @@ internal static class ColorApi
 
     [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
     public static extern RgbColor HslToRgb(HslSpace hsl);
+
+    // --- Xyz Conversions ---
+
+    [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern XyzSpace RgbToXyz(RgbColor rgb);
 
     // --- Integer / Decimal Conversions ---
 

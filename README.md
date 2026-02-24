@@ -1,4 +1,4 @@
-[![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://github.com/gavin1970/Chizl.Colors)
+[![Version](https://img.shields.io/badge/version-1.2.0-blue.svg)](https://github.com/gavin1970/Chizl.Colors)
 [![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux-lightgrey.svg)](https://github.com/gavin1970/Chizl.Colors)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/gavin1970/Chizl.Colors/blob/master/LICENSE.md)<br/>
 [![Target Frameworks](https://img.shields.io/badge/target%20frameworks-c%20%7C%20cplusplus%20%7C%20.net-purple)](https://dotnet.microsoft.com/)
@@ -57,6 +57,9 @@ int main() {
 	// Convert to HSV
 	HsvSpace hsv = RgbToHsv(cyan);
 	printf("HSV: H:%.2f, S:%.2f, V:%.2f\n", hsv.hue, hsv.saturation, hsv.value);
+	// Convert to XYZ
+	XyzSpace xyz = RgbToXyz(cyan);
+	printf("XYZ: X%.2f, Y:%.2f, Z:%.2f\n", xyz.x, xyz.y, xyz.z);
 
 	// Set console foreground color
 	SetFgColorEx(cyan);
@@ -79,6 +82,9 @@ var cyan = new RgbColor { alpha = 255, red = 0, green = 255, blue = 255 };
 // Convert to HSL 
 var hsl = RgbToHsl(cyan); 
 Console.WriteLine($"HSL: H:{hsl.hue:0.00}, S:{hsl.saturation:0.00}, L:{hsl.lightness:0.00}");
+// Convert to XYZ
+var xyz = RgbToXyz(cyan);
+Console.WriteLine($"XYZ: X:{xyz.x:0.00}, Y:{xyz.y:0.00}, Z:{xyz.z:0.00}");
 
 // Set console colors 
 SetColorsEx(cyan, new RgbColor { alpha = 255, red = 0, green = 0, blue = 0 }); 
@@ -107,6 +113,10 @@ ClearBuffer();
 
 * `RgbColor HslToRgb(HslSpace hsl)`
 	* Converts HSL to RGB. Uses raw_lightness if available for precision.
+
+* `XyzSpace RgbToXyz(RgbColor rgb)`
+	* Converts RGB to XYZ color space.
+	* **Returns**: `XyzSpace` with X, Y, Z components.
 
 ### Console Colors
 

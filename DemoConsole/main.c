@@ -70,6 +70,8 @@ static void ColorConversionDemo(void)
 static void ShowColorInfo(RgbColor bgColor, RgbColor fgColor, char* title) {
     HsvSpace hsv = RgbToHsv(bgColor);
     HslSpace hsl = RgbToHsl(bgColor);
+    XyzSpace xyz = RgbToXyz(bgColor);
+
     RgbColor hsv_rt = HsvToRgb(hsv);
     RgbColor hsl_rt = HslToRgb(hsl);
 
@@ -82,6 +84,7 @@ static void ShowColorInfo(RgbColor bgColor, RgbColor fgColor, char* title) {
     PrintLine(" '%s' Color: (R:%u, G:%u, B:%u)", title, bgColor.red, bgColor.green, bgColor.blue);
     PrintLine("  - HSL: H:%.2f, S:%.2f, L:%.2f, Raw:%f", hsl.hue, hsl.saturation, hsl.lightness, hsl.raw_lightness);
     PrintLine("  - HSV: H:%.2f, S:%.2f, V:%.2f, Raw:%f", hsv.hue, hsv.saturation, hsv.value, hsv.raw_value);
+    PrintLine("  - XYZ: X:%.2f, Y:%.2f, Z:%.2f", xyz.x, xyz.y, xyz.z);
     PrintLine("  - HEX8: %s", ahex);
     PrintLine("  - HEX6: %s", hex);
 

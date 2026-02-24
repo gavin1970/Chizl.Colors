@@ -1,7 +1,7 @@
 // color_conversions.c
 #include "color_conversions.h"
 #include "common.h"
-#include <math.h>               // For fmin, fmax, fabs, round
+#include <math.h>               // For fmin, fmax, fabs, round, pow
 #include <stdio.h>              // Required for sprintf
 #include <objbase.h>            // For CoTaskMemAlloc
 
@@ -158,7 +158,7 @@ CHIZL_COLORS_API RgbColor HslToRgb(HslSpace hsl)
         b = HueToRgb(p, q, h - 1.0 / 3.0);
     }
 
-    // Convert 0.0-1.0 back to 0-255
+	// Convert 0.0-1.0 back to 0-255
     RgbColor rgb = {
         (unsigned char)255.0,
         (unsigned char)round(r * 255.0),
@@ -167,6 +167,38 @@ CHIZL_COLORS_API RgbColor HslToRgb(HslSpace hsl)
     };
     return rgb;
 }
+
+CHIZL_COLORS_API XyzSpace RgbToXyz(RgbColor rgb)
+{
+    // Normalize R, G, B to the range [0, 1]
+    double r = rgb.red / 255.0;
+    double g = rgb.green / 255.0;
+    double b = rgb.blue / 255.0;
+
+    // Apply gamma correction (sRGB to linear RGB)
+    r = (r > 0.04045) ? pow((r + 0.055) / 1.055, 2.4) : r / 12.92;
+    g = (g > 0.04045) ? pow((g + 0.055) / 1.055, 2.4) : g / 12.92;
+    b = (b > 0.04045) ? pow((b + 0.055) / 1.055, 2.4) : b / 12.92;
+
+    // Convert linear RGB to XYZ using sRGB-specific transformation matrix
+    // These coefficients are for sRGB with D65 illuminant
+    double x = r * 0.4124564 + g * 0.3575761 + b * 0.1804375;
+    double y = r * 0.2126729 + g * 0.7151522 + b * 0.0721750;
+    double z = r * 0.0193339 + g * 0.1191920 + b * 0.9503041;
+
+    // Scale XYZ to 0-100 range for consistency with common representations
+    // If Y is expected to be 100 for white, then X and Z should be scaled accordingly.
+    // The coefficients already produce values in a range where Y for white is ~1.0,
+    // so multiplying by 100 makes Y for white = 100.
+
+    XyzSpace xyz = {
+        x * 100.0,
+        y * 100.0,
+        z * 100.0
+    };
+    return xyz;
+}
+
 
 CHIZL_COLORS_API char* RgbToRgbHex(RgbColor clr, unsigned int includeAlpha) {
     // Hex form: #RRGGBB
