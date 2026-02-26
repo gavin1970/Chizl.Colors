@@ -4,7 +4,7 @@
 // --- "DLL Export" Macro ---
 // This tells the compiler that these functions should be made public (exported) from the DLL.
 
-#define CHIZL_COLORS_VERSION "1.2.1"
+#define CHIZL_COLORS_VERSION "1.3.1"
 #define CHIZL_COLORS_API CHIZL_COLORS_DLL
 
 #if defined(_WIN32) || defined(_WIN64)

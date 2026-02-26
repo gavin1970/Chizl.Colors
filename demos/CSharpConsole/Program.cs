@@ -67,11 +67,8 @@ namespace CSharpConsole
             var labFull = XyzToLabEx(xyz, WhitePointType.WPID_D65_FULL);
             var lab64 = XyzToLabEx(xyz, WhitePointType.WPID_D65);
 
-            var pAhex = RgbToRgbHex(clr, true);
-            var pHex = RgbToRgbHex(clr, false);
-
-            var ahex = PtrToAnsiAndFree(pAhex);     //converts nint to string and frees the pointer, REQUIRED.
-            var hex = PtrToAnsiAndFree(pHex);       //converts nint to string and frees the pointer, REQUIRED.
+            var ahex = PtrToAnsiAndFree(RgbToRgbHex(clr, true));     //converts nint to string and frees the pointer, REQUIRED.
+            var hex = PtrToAnsiAndFree(RgbToRgbHex(clr, false));     //converts nint to string and frees the pointer, REQUIRED.
 
             int dec = unchecked((int)RgbToRgbDec(clr));
             int aDec = unchecked((int)RgbToArgbDec(clr));

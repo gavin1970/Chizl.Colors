@@ -22,27 +22,33 @@ CHIZL_COLORS_API void SetColorsEx(RgbColor bg, RgbColor fg)
 { 
     SetBgColorEx(bg); SetFgColorEx(fg); 
 }
+
 CHIZL_COLORS_API void SetFgColorEx(RgbColor fg) 
 { 
     SetFgColor(fg.red, fg.green, fg.blue); 
 }
+
 CHIZL_COLORS_API void SetBgColorEx(RgbColor bg) 
 { 
     SetBgColor(bg.red, bg.green, bg.blue); 
 }
+
 CHIZL_COLORS_API void SetFgColor(unsigned char red, unsigned char green, unsigned char blue) 
 { 
     PrintAnsiColor(1, red, green, blue); 
 }
+
 CHIZL_COLORS_API void SetBgColor(unsigned char red, unsigned char green, unsigned char blue) 
 { 
     PrintAnsiColor(0, red, green, blue); 
 }
+
 CHIZL_COLORS_API void ResetColor(void) 
 { 
     printf("\x1b[0m"); 
     fflush(stdout); 
 }
+
 CHIZL_COLORS_API void ClearBuffer(void) 
 { 
     printf("\x1b%c\x1b[3J", 'c'); 

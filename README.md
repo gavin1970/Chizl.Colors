@@ -1,9 +1,13 @@
-[![Version](https://img.shields.io/badge/version-1.2.1-blue.svg)](https://github.com/gavin1970/Chizl.Colors)
-[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux-lightgrey.svg)](https://github.com/gavin1970/Chizl.Colors)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/gavin1970/Chizl.Colors/blob/master/LICENSE.md)<br/>
-[![Target Frameworks](https://img.shields.io/badge/target%20frameworks-c%20%7C%20cplusplus%20%7C%20.net-purple)](https://dotnet.microsoft.com/)
+# Chizl.Colors
 
-A lightweight, cross-platform C/C++ library with .NET interop for color manipulation and console color rendering with 24-bit true color support.
+[![Version](https://img.shields.io/badge/version-1.2.1-blue.svg)](https://github.com/gavin1970/Chizl.Colors)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/gavin1970/Chizl.Colors/blob/master/LICENSE.md)
+![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux-purple.svg)<br/>
+![Dependencies](https://img.shields.io/badge/dependencies-none-purple)
+![Code Language](https://img.shields.io/badge/output-static%20c%20%7C%20lib%20%7C%20dll-purple)
+
+
+A lightweight, cross-platform C/C++ library with .NET interop for color manipulation and includes console color rendering with 24-bit true color support.
 
 
 ---
@@ -317,7 +321,10 @@ This project is licensed under the MIT License - see the [LICENSE](https://githu
 
 ## Version History
 
-- **1.2.1** - Current release
+- **1.3.1** - Current release
+  - Separated RGB, HSL, HSV, XYZ, and Lab color space structures into separate files for better organization and clarity in the API, before adding in CYMK, LUV, etc.
+
+- **1.2.1**
   - Added LabSpace color space conversions (XYZ to Lab) with use of D64 or D64_Full white point types for precision control.
 
 - **1.2.0**

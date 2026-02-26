@@ -103,6 +103,9 @@ static void ShowColorInfo(RgbColor bgColor, RgbColor fgColor, char* title) {
     PrintLine("  - HSV Roundtrip -> RGB: (R:%u, G:%u, B:%u)", hsv_rt.red, hsv_rt.green, hsv_rt.blue);
 
     ResetColor();
+
+	ChizlFree(ahex);
+	ChizlFree(hex);
 }
 
 static void ConsoleColorPrintDemo(void) {

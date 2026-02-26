@@ -5,6 +5,10 @@
 // automatically gets the DLL functions, too. Good!
 #include "ansi_printing.h"
 #include "color_conversions.h"
+#include "rgb_conversions.h"
+#include "hsl_conversions.h"
+#include "hsv_conversions.h"
+#include "xyz_conversions.h"
 
 // --- DECLARATIONS ---
 // We "declare" the variables with 'extern'.
