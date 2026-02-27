@@ -9,6 +9,7 @@
 #include "hsl_conversions.h"
 #include "hsv_conversions.h"
 #include "xyz_conversions.h"
+#include "cmyk_conversions.h"
 
 // --- DECLARATIONS ---
 // We "declare" the variables with 'extern'.

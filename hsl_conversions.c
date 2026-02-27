@@ -12,6 +12,42 @@ static double HueToRgb(double p, double q, double t) {
     return p;
 }
 
+CHIZL_COLORS_API HslSpace RgbToHsl(RgbColor rgb)
+{
+    // Convert 0-255 to 0.0-1.0
+    double r = (double)rgb.red / 255.0;
+    double g = (double)rgb.green / 255.0;
+    double b = (double)rgb.blue / 255.0;
+
+    double min = fmin(fmin(r, g), b);
+    double max = fmax(fmax(r, g), b);
+    double delta = max - min;
+
+    double h = 0.0;
+    double s = 0.0;
+    double l = (max + min) / 2.0;
+    double raw = l;         // raw value.  More precise when converting back to RGB.
+
+    if (delta != 0.0)
+    {
+        s = (l <= 0.5) ? (delta / (max + min)) : (delta / (2.0 - max - min));
+
+        if (r == max)
+            h = (g - b) / delta;
+        else if (g == max)
+            h = 2.0 + (b - r) / delta;
+        else // b == max
+            h = 4.0 + (r - g) / delta;
+
+        h *= 60.0; // convert to degrees
+        if (h < 0.0)
+            h += 360.0;
+    }
+
+    HslSpace hsl = { h, s * 100.0, l * 100.0, raw };
+    return hsl;
+}
+
 CHIZL_COLORS_API RgbColor HslToRgb(HslSpace hsl)
 {
     // Convert 0-100.0 to 0.0-1.0

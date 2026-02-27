@@ -25,6 +25,13 @@ typedef enum {
 } WhitePointType;
 
 /// <summary>
+/// Converts an RGB color to the CIE XYZ color space.
+/// </summary>
+/// <param name="rgb">The RGB color to convert.</param>
+/// <returns>The color represented in the CIE XYZ color space.</returns>
+CHIZL_COLORS_API XyzSpace RgbToXyz(RgbColor rgb);
+
+/// <summary>
 /// Converts a color from XYZ color space to Lab color space.
 /// </summary>
 /// <param name="xyz">The color in XYZ color space to convert.</param>

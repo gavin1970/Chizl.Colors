@@ -17,20 +17,6 @@ extern "C" {
 typedef uint32_t chizl_color32;
 
 /// <summary>
-/// Converts an RGB color to its HSL (Hue, Saturation, Lightness) equivalent.
-/// </summary>
-/// <param name="rgb">RGB Color</param>
-/// <returns>HSL struct</returns>
-CHIZL_COLORS_API HslSpace RgbToHsl(RgbColor rgb);
-
-/// <summary>
-/// Converts an RGB color to its HSV (Hue, Saturation, Value) equivalent.
-/// </summary>
-/// <param name="rgb">RGB Color</param>
-/// <returns>HSV struct</returns>
-CHIZL_COLORS_API HsvSpace RgbToHsv(RgbColor rgb);
-
-/// <summary>
 /// Converts an RGB color to its hexadecimal string representation.
 /// </summary>
 /// <param name="clr">The RGB color to convert.</param>
@@ -51,14 +37,6 @@ CHIZL_COLORS_API chizl_color32 RgbToRgbDec(RgbColor clr);
 /// <param name="rgb">The RGB color to convert.</param>
 /// <returns>A 32-bit ARGB color value with the alpha channel set to fully opaque.</returns>
 CHIZL_COLORS_API chizl_color32 RgbToArgbDec(RgbColor rgb);
-
-/// <summary>
-/// Converts an RGB color to the CIE XYZ color space.
-/// </summary>
-/// <param name="rgb">The RGB color to convert.</param>
-/// <returns>The color represented in the CIE XYZ color space.</returns>
-CHIZL_COLORS_API XyzSpace RgbToXyz(RgbColor rgb);
-
 
 // --- End of "extern C" block ---
 #ifdef __cplusplus

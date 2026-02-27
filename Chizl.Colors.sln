@@ -8,6 +8,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "C_Console", "DemoConsole\DemoConsole.vcxproj", "{CEECDBF8-AC11-4890-A06D-E579E8DCA4C2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharp_Console", "demos\CSharpConsole\CSharp_Console.csproj", "{212D8673-8833-4662-B6D4-692E63E04FFE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{13254337-AA3C-45BD-88FF-C2AB85D14350} = {13254337-AA3C-45BD-88FF-C2AB85D14350}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

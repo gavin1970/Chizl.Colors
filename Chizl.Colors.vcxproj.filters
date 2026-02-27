@@ -28,6 +28,9 @@
     <Filter Include="docs">
       <UniqueIdentifier>{8a0a8319-e80b-40ae-b09d-ecaceaf1428d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="scripts">
+      <UniqueIdentifier>{19bc4e70-247e-4681-9e31-bffc05c62b54}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ansi_printing.c">
@@ -49,6 +52,9 @@
       <Filter>Source Files\public</Filter>
     </ClCompile>
     <ClCompile Include="xyz_conversions.c">
+      <Filter>Source Files\public</Filter>
+    </ClCompile>
+    <ClCompile Include="cmyk_conversion.c">
       <Filter>Source Files\public</Filter>
     </ClCompile>
   </ItemGroup>
@@ -83,6 +89,9 @@
     <ClInclude Include="xyz_conversions.h">
       <Filter>Header Files\public</Filter>
     </ClInclude>
+    <ClInclude Include="cmyk_conversions.h">
+      <Filter>Header Files\public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="console_examples.png">
@@ -96,5 +105,13 @@
     <None Include="LICENSE.md">
       <Filter>docs</Filter>
     </None>
+    <None Include="update_version.ps1">
+      <Filter>scripts</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="version.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

@@ -3,6 +3,12 @@
 #include <windows.h>    // FlushConsoleInputBuffer, GetStdHandle, STD_INPUT_HANDLE
 #include "main.h"
 
+// stress tests
+const RgbColor rgbNearPureBlack = { 255, 1, 2, 3 };
+const RgbColor rgbDeepNavy = { 255, 18, 52, 86 };
+const RgbColor rgbNearPureWhite = { 255, 254, 253, 252 };
+
+
 const RgbColor rgbRed = { 255, 255, 0, 0 };
 const RgbColor rgbBlue = { 255, 0, 0, 255 };
 const RgbColor rgbViolet = { 255, 127, 0, 255 };
@@ -62,8 +68,11 @@ static void ColorConversionDemo(void)
     ShowColorInfo(rgbViolet, rgbWhite, "Violet - #7F00FF");
     ShowColorInfo(rgbCyan, rgbBlack, "Cyan - #00FFFF");
     ShowColorInfo(rgbAshRose, rgbWhite, "Ash Rose - #B5817D");
+    ShowColorInfo(rgbNearPureBlack, rgbWhite, "Near Pure Black - #010203");
+    ShowColorInfo(rgbDeepNavy, rgbWhite, "Deep Navy - #123456");
+    ShowColorInfo(rgbNearPureWhite, rgbBlack, "Near Pure White - #FEFDFC");
 
-    AnyKey("Press any key to continue...", &rgbYellow);
+    AnyKey("\nPress any key to continue...", &rgbYellow);
 }
 
 /// <summary>
@@ -76,11 +85,13 @@ static void ShowColorInfo(RgbColor bgColor, RgbColor fgColor, char* title) {
     HsvSpace hsv = RgbToHsv(bgColor);
     HslSpace hsl = RgbToHsl(bgColor);
     XyzSpace xyz = RgbToXyz(bgColor);
+	CmykSpace cmyk = RgbToCmyk(bgColor);
     LabSpace labFull = XyzToLabEx(xyz, d64_Full_Type);
     LabSpace lab64 = XyzToLabEx(xyz, d64_Type);
 
     RgbColor hsv_rt = HsvToRgb(hsv);
     RgbColor hsl_rt = HslToRgb(hsl);
+    RgbColor cmyk_rt = CmykToRgb(cmyk);
 
     char* ahex = RgbToRgbHex(bgColor, 1);
     char* hex = RgbToRgbHex(bgColor, 0);
@@ -91,6 +102,7 @@ static void ShowColorInfo(RgbColor bgColor, RgbColor fgColor, char* title) {
     
     PrintLine(" --- Testing %s Conversions --- ", title);
     PrintLine(" '%s' Color: (R:%u, G:%u, B:%u)", title, bgColor.red, bgColor.green, bgColor.blue);
+	PrintLine("  - CMYK: C:%.2f, M:%.2f, Y:%.2f, K:%.2f, Raw:%f", cmyk.cyan, cmyk.magenta, cmyk.yellow, cmyk.key, cmyk.raw_key);
     PrintLine("  - HSL: H:%.2f, S:%.2f, L:%.2f, Raw:%f", hsl.hue, hsl.saturation, hsl.lightness, hsl.raw_lightness);
     PrintLine("  - HSV: H:%.2f, S:%.2f, V:%.2f, Raw:%f", hsv.hue, hsv.saturation, hsv.value, hsv.raw_value);
     PrintLine("  - XYZ: X:%.2f, Y:%.2f, Z:%.2f", xyz.x, xyz.y, xyz.z);
@@ -101,6 +113,7 @@ static void ShowColorInfo(RgbColor bgColor, RgbColor fgColor, char* title) {
 
     PrintLine("  - HSL Roundtrip -> RGB: (R:%u, G:%u, B:%u)", hsl_rt.red, hsl_rt.green, hsl_rt.blue);
     PrintLine("  - HSV Roundtrip -> RGB: (R:%u, G:%u, B:%u)", hsv_rt.red, hsv_rt.green, hsv_rt.blue);
+	PrintLine("  - CMYK Roundtrip -> RGB: (R:%u, G:%u, B:%u)", cmyk_rt.red, cmyk_rt.green, cmyk_rt.blue);
 
     ResetColor();
 

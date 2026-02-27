@@ -45,3 +45,39 @@ CHIZL_COLORS_API RgbColor HsvToRgb(HsvSpace hsv)
     };
     return rgb;
 }
+
+CHIZL_COLORS_API HsvSpace RgbToHsv(RgbColor rgb)
+{
+    // Convert 0-255 to 0.0-1.0
+    double r = clampDbl(rgb.red, 0.0, 255.0) / 255.0;
+    double g = clampDbl(rgb.green, 0.0, 255.0) / 255.0;
+    double b = clampDbl(rgb.blue, 0.0, 255.0) / 255.0;
+
+    double min = fmin(fmin(r, g), b);
+    double max = fmax(fmax(r, g), b);
+    double delta = max - min;
+
+    double h = 0.0;
+    double s = 0.0;
+    double v = max;     // Value is just the max component
+    double raw = max;   // raw value, before conversion.  More precise when converting back to RGB.
+
+    if (delta != 0.0)
+    {
+        s = (max == 0.0) ? 0.0 : (delta / max);
+
+        if (r == max)
+            h = (g - b) / delta;
+        else if (g == max)
+            h = 2.0 + (b - r) / delta;
+        else // b == max
+            h = 4.0 + (r - g) / delta;
+
+        h *= 60.0; // convert to degrees
+        if (h < 0.0)
+            h += 360.0;
+    }
+
+    HsvSpace hsv = { h, s * 100.0, v * 100.0, raw };
+    return hsv;
+}

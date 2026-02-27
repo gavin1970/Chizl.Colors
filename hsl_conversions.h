@@ -14,6 +14,13 @@ extern "C" {
 #include "chizl_colors_types.h"
 
 /// <summary>
+/// Converts an RGB color to its HSL (Hue, Saturation, Lightness) equivalent.
+/// </summary>
+/// <param name="rgb">RGB Color</param>
+/// <returns>HSL struct</returns>
+CHIZL_COLORS_API HslSpace RgbToHsl(RgbColor rgb);
+
+/// <summary>
 /// Converts HSL to RGB Color.  -- NOTICE: There are 16,777,216 colors and only 3,600,000 HSL possible values.  
 /// This means HSL to RGB will only convert to one of it's possible colors and will not convert to them all.
 /// </summary>

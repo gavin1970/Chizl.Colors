@@ -7,6 +7,10 @@ namespace CSharpConsole
     internal class Program
     {
         const string welcomeToDemo = " Welcome to the .NET Console Color Demo! ";
+        // some stress test colors, and some common ones.
+        static readonly RgbColor rgbNearPureBlack = new RgbColor { alpha = 255, red = 1, blue = 2, green = 3 };
+        static readonly RgbColor rgbDeepNavy = new RgbColor { alpha = 255, red = 18, blue = 86, green = 52 };
+        static readonly RgbColor rgbNearPureWhite = new RgbColor { alpha = 255, red = 254, blue = 253, green = 252 };
 
         static readonly RgbColor rgbEmpty = new RgbColor { alpha = 0, red = 0, green = 0, blue = 0 };
         static readonly RgbColor rgbRed = new RgbColor { alpha = 255, red = 255, green = 0, blue = 0 };
@@ -50,8 +54,10 @@ namespace CSharpConsole
             ShowColorInfo(rgbViolet, rgbWhite, "Violet");
             ShowColorInfo(rgbCyan, rgbBlack, "Cyan");
             ShowColorInfo(rgbAshRose, rgbWhite, "Ash Rose");
-            Console.WriteLine();
-
+            ShowColorInfo(rgbNearPureBlack, rgbWhite, "Near Pure Black");
+            ShowColorInfo(rgbDeepNavy, rgbWhite, "Deep Navy");
+            ShowColorInfo(rgbNearPureWhite, rgbBlack, "Near Pure White");
+            
             AnyKey("Press any key to continue...", rgbYellow);
         }
 
@@ -63,6 +69,7 @@ namespace CSharpConsole
             var hsv = RgbToHsv(clr);
             var hsl = RgbToHsl(clr);
             var xyz = RgbToXyz(clr);
+            var cmyk = RgbToCmyk(clr);
 
             var labFull = XyzToLabEx(xyz, WhitePointType.WPID_D65_FULL);
             var lab64 = XyzToLabEx(xyz, WhitePointType.WPID_D65);
@@ -75,10 +82,12 @@ namespace CSharpConsole
 
             var hsv_rev = HsvToRgb(hsv);
             var hsl_rev = HslToRgb(hsl);
+            var cmyk_rev = CmykToRgb(cmyk);
 
             sb.AppendLine($"{pad} --- Testing {title} - {hex} Conversions ---");
 
             sb.AppendLine($"{pad}'{title}' Color: (R:{clr.red}, G:{clr.green}, B:{clr.blue})");
+            sb.AppendLine($"{pad} - CMYK: C:{cmyk.cyan:0.00}, M:{cmyk.magenta:0.00}, Y:{cmyk.yellow:0.00}, K:{cmyk.key:0.00}, Raw:{cmyk.raw_key:0.000000}");
             sb.AppendLine($"{pad} - HSV: H:{hsv.hue:0.00}, S:{hsv.saturation:0.00}, V:{hsv.value:0.00}, Raw:{hsv.raw_value:0.000000}");
             sb.AppendLine($"{pad} - HSL: H:{hsl.hue:0.00}, S:{hsl.saturation:0.00}, L:{hsl.lightness:0.00}, Raw:{hsl.raw_lightness:0.000000}");
             sb.AppendLine($"{pad} - XYZ: X:{xyz.x:0.00}, Y:{xyz.y:0.00}, Z:{xyz.z:0.00}");
@@ -90,6 +99,7 @@ namespace CSharpConsole
 
             sb.AppendLine($"{pad} - HSV Roundtrip -> RGB: (R:{hsv_rev.red}, G:{hsv_rev.green}, B:{hsv_rev.blue})");
             sb.AppendLine($"{pad} - HSL Roundtrip -> RGB: (R:{hsl_rev.red}, G:{hsl_rev.green}, B:{hsl_rev.blue})");
+            sb.AppendLine($"{pad} - CMYK Roundtrip -> RGB: (R:{hsl_rev.red}, G:{hsl_rev.green}, B:{hsl_rev.blue})");
 
             WriteLines(clr, textClr, sb.ToString().Replace("\r", "").Split('\n'), 55);
         }
@@ -127,7 +137,9 @@ namespace CSharpConsole
             foreach (var msg in msgs)
             {
                 var newMsg = msg + new string(' ', maxLen - msg.Length);
-                PrintWithColor(bg, fg, string.Format($"{newMsg}\n"));
+                PrintWithColor(bg, fg, newMsg);
+                if (msgs.Length > 1)
+                    Console.WriteLine();
             }
 
             return maxLen;

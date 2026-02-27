@@ -36,6 +36,16 @@ internal struct XyzSpace
 }
 
 [StructLayout(LayoutKind.Sequential)]
+internal struct CmykSpace
+{
+    public double cyan;
+    public double magenta;
+    public double yellow;
+    public double key;
+    public double raw_key;
+}
+
+[StructLayout(LayoutKind.Sequential)]
 public struct LabSpace
 {
     public double l;
@@ -93,6 +103,15 @@ internal static class ColorApi
 
     [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
     public static extern LabSpace XyzToLab(XyzSpace xyz);
+
+
+    // --- Cmyk Conversions ---
+
+    [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern CmykSpace RgbToCmyk(RgbColor rgb);
+
+    [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern RgbColor CmykToRgb(CmykSpace rgb);
 
     // --- Integer / Decimal Conversions ---
 

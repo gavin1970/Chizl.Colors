@@ -7,7 +7,7 @@
 // for the Chizl Colors library.
 
 /// <summary>
-/// Color struct definition without alpha.
+/// Color struct definition.
 /// </summary>
 typedef struct {
     unsigned char alpha;    // 0 - 255, Transparncy: 0 = invisible, 255 = solid
@@ -15,6 +15,17 @@ typedef struct {
     unsigned char green;    // 0 - 255, Dark = 0, Bright Green = 255
     unsigned char blue;     // 0 - 255, Dark = 0, Bright Blue = 255
 } RgbColor;
+
+/// <summary>
+/// Represents a color in the CMYK (Cyan, Magenta, Yellow, Key/Black) color space.
+/// </summary>
+typedef struct {
+	double cyan;    // 0.0 - 100.0
+	double magenta; // 0.0 - 100.0
+	double yellow;  // 0.0 - 100.0
+	double key;     // 0.0 - 100.0
+	double raw_key; // This is the RAW (0.0-1.0) version of key, instead of auto multiplying 100.  Raw key provides better accuracy when converting to RGB.
+} CmykSpace;
 
 /// <summary>
 /// The HSV (Hue, Saturation, Value) aka HSB (Hue, Saturation, Brightness)
