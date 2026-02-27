@@ -135,7 +135,7 @@ ClearBuffer();
 
 * `HsvSpace RgbToHsv(RgbColor rgb)`
 	* Converts RGB (0-255) to HSV color space.
-	* **Returns**: `HsvSpace` with hue (0-360&deg;), saturation (0-100%), value (0-100%), and raw_value
+	* **Returns**: `HsvSpace` with hue (0-360&deg;), saturation (0-100%), value (0-100%), and raw_value for improved round-trip accuracy.
 
 * `RgbColor HsvToRgb(HsvSpace hsv)`
 	* Converts HSV to RGB. Uses raw_value if available for precision.
@@ -143,7 +143,7 @@ ClearBuffer();
 
 * `HslSpace RgbToHsl(RgbColor rgb)`
 	* Converts RGB to HSL (Hue, Saturation, Lightness) color space.
-	* **Returns**: `HslSpace` with hue (0-360�), saturation (0-100%), lightness (0-100%), and raw_lightness
+	* **Returns**: `HslSpace` with hue (0-360�), saturation (0-100%), lightness (0-100%), and raw_lightness for improved round-trip accuracy.
 
 * `RgbColor HslToRgb(HslSpace hsl)`
 	* Converts HSL to RGB. Uses raw_lightness if available for precision.
@@ -157,6 +157,12 @@ ClearBuffer();
 
 * `LabSpace XyzToLabEx(XyzSpace xyz, WhitePointType whitePoint)`
 	* Converts XYZ to Lab color space with specified white point type for precision control.
+	
+* `CmykSpace RgbToCmyk(RgbColor clr)`
+	* Converts RGB to CMYK color space.  CmykSpace maintains cyan, magenta, yellow, and black components (0-100%) and raw black value for improved round-trip accuracy.
+	
+* `RgbColor CmykToRgb(CmykSpace cmyk)`
+	* Converts CMYK to RGB color space.
 	
 ### Console Colors
 
