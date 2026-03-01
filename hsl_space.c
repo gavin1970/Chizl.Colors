@@ -1,5 +1,5 @@
-// hsl_conversions.c
-#include "hsl_conversions.h"
+// hsl_space.c
+#include "hsl_space.h"
 #include <string.h>             // For strlen, strcpy_s
 #include <math.h>               // For fmin, fmax, fabs, round, pow
 

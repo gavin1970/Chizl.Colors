@@ -1,9 +1,9 @@
-// hsv_conversions.h
+// hsv_space.h
 
 #pragma once
 
-#ifndef HSV_CONVERSIONS_H
-#define HSV_CONVERSIONS_H
+#ifndef HSV_SPACE_H
+#define HSV_SPACE_H
 
 // --- Start of "extern C" block ---
 #ifdef __cplusplus

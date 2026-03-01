@@ -1,9 +1,9 @@
-// color_conversions.h
+// color_support.h
 
 #pragma once
 
-#ifndef COLOR_CONVERSIONS_H
-#define COLOR_CONVERSIONS_H
+#ifndef COLOR_SUPPORT_H
+#define COLOR_SUPPORT_H
 
 // --- Start of "extern C" block ---
 #ifdef __cplusplus

@@ -1,5 +1,5 @@
-// hsv_conversions.c
-#include "hsv_conversions.h"
+// hsv_space.c
+#include "hsv_space.h"
 #include "common.h"             // For clampDbl
 #include <math.h>               // For fmin, fmax, fabs, round, pow
 

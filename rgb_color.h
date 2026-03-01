@@ -1,9 +1,9 @@
-// rgb_conversions.h
+// rgb_color.h
 
 #pragma once
 
-#ifndef RGB_CONVERSIONS_H
-#define RGB_CONVERSIONS_H
+#ifndef RGB_COLOR_H
+#define RGB_COLOR_H
 
 // --- Start of "extern C" block ---
 #ifdef __cplusplus

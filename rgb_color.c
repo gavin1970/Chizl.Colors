@@ -1,5 +1,5 @@
-// rgb_conversions.c
-#include "rgb_conversions.h"
+// rgb_color.c
+#include "rgb_color.h"
 #include "common.h"             // clampDbl
 #include <string.h>             // For strlen, strcpy_s
 #include <math.h>               // For fmin, fmax, fabs, round, pow

@@ -1,5 +1,5 @@
 // cmyk_conversions.c
-#include "cmyk_conversions.h"
+#include "cmyk_space.h"
 #include "common.h"             // For clampInt, clampDbl
 #include <string.h>             // For strlen, strcpy_s
 #include <math.h>               // For fmin, fmax, fabs, round, pow

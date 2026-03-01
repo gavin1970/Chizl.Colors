@@ -36,25 +36,28 @@
     <ClCompile Include="ansi_printing.c">
       <Filter>Source Files\public</Filter>
     </ClCompile>
-    <ClCompile Include="color_conversions.c">
+    <ClCompile Include="color_support.c">
       <Filter>Source Files\public</Filter>
     </ClCompile>
     <ClCompile Include="white_points.c">
       <Filter>Source Files\public</Filter>
     </ClCompile>
-    <ClCompile Include="rgb_conversions.c">
+    <ClCompile Include="rgb_color.c">
       <Filter>Source Files\public</Filter>
     </ClCompile>
-    <ClCompile Include="hsl_conversions.c">
+    <ClCompile Include="hsl_space.c">
       <Filter>Source Files\public</Filter>
     </ClCompile>
-    <ClCompile Include="hsv_conversions.c">
+    <ClCompile Include="hsv_space.c">
       <Filter>Source Files\public</Filter>
     </ClCompile>
-    <ClCompile Include="xyz_conversions.c">
+    <ClCompile Include="xyz_space.c">
       <Filter>Source Files\public</Filter>
     </ClCompile>
-    <ClCompile Include="cmyk_conversion.c">
+    <ClCompile Include="cmyk_space.c">
+      <Filter>Source Files\public</Filter>
+    </ClCompile>
+    <ClCompile Include="lch_space.c">
       <Filter>Source Files\public</Filter>
     </ClCompile>
   </ItemGroup>
@@ -68,7 +71,7 @@
     <ClInclude Include="import_exports.h">
       <Filter>Header Files\internal</Filter>
     </ClInclude>
-    <ClInclude Include="color_conversions.h">
+    <ClInclude Include="color_support.h">
       <Filter>Header Files\public</Filter>
     </ClInclude>
     <ClInclude Include="chizl_colors_types.h">
@@ -77,19 +80,22 @@
     <ClInclude Include="white_points.h">
       <Filter>Header Files\public</Filter>
     </ClInclude>
-    <ClInclude Include="hsl_conversions.h">
+    <ClInclude Include="hsl_space.h">
       <Filter>Header Files\public</Filter>
     </ClInclude>
-    <ClInclude Include="rgb_conversions.h">
+    <ClInclude Include="rgb_color.h">
       <Filter>Header Files\public</Filter>
     </ClInclude>
-    <ClInclude Include="hsv_conversions.h">
+    <ClInclude Include="hsv_space.h">
       <Filter>Header Files\public</Filter>
     </ClInclude>
-    <ClInclude Include="xyz_conversions.h">
+    <ClInclude Include="xyz_space.h">
       <Filter>Header Files\public</Filter>
     </ClInclude>
-    <ClInclude Include="cmyk_conversions.h">
+    <ClInclude Include="cmyk_space.h">
+      <Filter>Header Files\public</Filter>
+    </ClInclude>
+    <ClInclude Include="lch_space.h">
       <Filter>Header Files\public</Filter>
     </ClInclude>
   </ItemGroup>

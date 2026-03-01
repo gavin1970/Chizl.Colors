@@ -4,6 +4,10 @@
 #ifndef COMMON_H
 #define COMMON_H
 
+static const double CHIZL_PI_F = 3.14159265358979323846f;					// float
+static const double CHIZL_PI = 3.14159265358979323846;						// double
+static const double CHIZL_PI_L = 3.14159265358979323846264338327950288L;	// long double
+
 //#define TRUE 1
 //#define FALSE 0
 //#define BOOL int

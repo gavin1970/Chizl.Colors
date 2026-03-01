@@ -4,12 +4,13 @@
 // We include this here so that any .c file that includes main.h
 // automatically gets the DLL functions, too. Good!
 #include "ansi_printing.h"
-#include "color_conversions.h"
-#include "rgb_conversions.h"
-#include "hsl_conversions.h"
-#include "hsv_conversions.h"
-#include "xyz_conversions.h"
-#include "cmyk_conversions.h"
+#include "color_support.h"
+#include "rgb_color.h"
+#include "hsl_space.h"
+#include "hsv_space.h"
+#include "xyz_space.h"
+#include "cmyk_space.h"
+#include "lch_space.h"
 
 // --- DECLARATIONS ---
 // We "declare" the variables with 'extern'.

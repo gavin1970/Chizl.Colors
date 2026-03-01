@@ -21,6 +21,12 @@ A lightweight, cross-platform C/C++ library with .NET interop for color manipula
 
 ---
 
+## Example Output
+
+[![Console Example](https://raw.githubusercontent.com/gavin1970/Chizl.Colors/refs/heads/master/thumbnail_examples.png)](https://raw.githubusercontent.com/gavin1970/Chizl.Colors/refs/heads/master/console_examples.png)
+
+---
+
 ## Table of Contents
 
 - [Installation](#installation)
@@ -137,33 +143,48 @@ ClearBuffer();
 	* Converts RGB (0-255) to HSV color space.
 	* **Returns**: `HsvSpace` with hue (0-360&deg;), saturation (0-100%), value (0-100%), and raw_value for improved round-trip accuracy.
 
-* `RgbColor HsvToRgb(HsvSpace hsv)`
-	* Converts HSV to RGB. Uses raw_value if available for precision.
-	* **Note**: Only ~3.6M HSV combinations exist for 16.7M RGB colors
-
 * `HslSpace RgbToHsl(RgbColor rgb)`
 	* Converts RGB to HSL (Hue, Saturation, Lightness) color space.
 	* **Returns**: `HslSpace` with hue (0-360�), saturation (0-100%), lightness (0-100%), and raw_lightness for improved round-trip accuracy.
-
-* `RgbColor HslToRgb(HslSpace hsl)`
-	* Converts HSL to RGB. Uses raw_lightness if available for precision.
 
 * `XyzSpace RgbToXyz(RgbColor rgb)`
 	* Converts RGB to XYZ color space.
 	* **Returns**: `XyzSpace` with X, Y, Z components.
 
+* `CmykSpace RgbToCmyk(RgbColor clr)`
+	* Converts RGB to CMYK color space.  CmykSpace maintains cyan, magenta, yellow, and black components (0-100%) and raw black value for improved round-trip accuracy.
+	* **Returns**: `CmykSpace` with cyan, magenta, yellow, and black components.
+
 * `LabSpace XyzToLab(XyzSpace xyz)`
 	* Converts XYZ to Lab color space using default full precision (d64_Full_Type).
+	* **Returns**: `LabSpace` with L, a, b components.
 
 * `LabSpace XyzToLabEx(XyzSpace xyz, WhitePointType whitePoint)`
 	* Converts XYZ to Lab color space with specified white point type for precision control.
+	* **Returns**: `LabSpace` with L, a, b components.
 	
-* `CmykSpace RgbToCmyk(RgbColor clr)`
-	* Converts RGB to CMYK color space.  CmykSpace maintains cyan, magenta, yellow, and black components (0-100%) and raw black value for improved round-trip accuracy.
-	
+* `LuvSpace XyzToLuv(XyzSpace rgb)`
+	* Converts a color from XYZ color space to Luv color space.  (Default: WP_D65_FULL white point is used for the conversion.)
+	* **Returns**: `LuvSpace` with L, u, v components.
+
+* `LuvSpace XyzToLuvEx(XyzSpace xyz, WhitePointType wp)`
+	* Converts a color from XYZ color space to Luv color space using a specified white point.
+	* **Returns**: `LuvSpace` with L, u, v components.
+
+
+* `RgbColor HsvToRgb(HsvSpace hsv)`
+	* Converts HSV to RGB. Uses raw_value if available for precision.
+	* **Note**: Only ~3.6M HSV combinations exist for 16.7M RGB colors
+	* **Returns**: `RgbColor` with alpha set to 255.
+
+* `RgbColor HslToRgb(HslSpace hsl)`
+	* Converts HSL to RGB. Uses raw_lightness if available for precision.
+	* **Returns**: `RgbColor` with alpha set to 255.
+
 * `RgbColor CmykToRgb(CmykSpace cmyk)`
 	* Converts CMYK to RGB color space.
-	
+	* **Returns**: `RgbColor` with alpha set to 255.
+
 ### Console Colors
 
 * `void SetColorsEx(RgbColor bg, RgbColor fg)`
@@ -325,7 +346,10 @@ This project is licensed under the MIT License - see the [LICENSE](https://githu
 
 ## Version History
 
-- **6.2.27.1704** - Current release
+- **6.3.1.0154** - Current release
+  - Library now supports RGB, HSV, HSL, CMYK, XYZ, Lab, Lch, and Luv color space conversions.	 Console color manipulation functions have been expanded to allow setting foreground and background colors separately or together using RGB values.  Hex and decimal format conversions for RGB colors are also supported.
+
+- **6.2.27.1704**
   - Updated version to existing Chizl standard using UTC timestamp.  Added RGB to CMYK and CMYK to RGB conversions.
 
 - **1.3.1**

@@ -20,26 +20,28 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ansi_printing.c" />
-    <ClCompile Include="cmyk_conversion.c" />
-    <ClCompile Include="color_conversions.c" />
-    <ClCompile Include="hsl_conversions.c" />
-    <ClCompile Include="hsv_conversions.c" />
-    <ClCompile Include="rgb_conversions.c" />
+    <ClCompile Include="cmyk_space.c" />
+    <ClCompile Include="color_support.c" />
+    <ClCompile Include="hsl_space.c" />
+    <ClCompile Include="hsv_space.c" />
+    <ClCompile Include="lch_space.c" />
+    <ClCompile Include="rgb_color.c" />
     <ClCompile Include="white_points.c" />
-    <ClCompile Include="xyz_conversions.c" />
+    <ClCompile Include="xyz_space.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ansi_printing.h" />
     <ClInclude Include="chizl_colors_types.h" />
-    <ClInclude Include="cmyk_conversions.h" />
-    <ClInclude Include="color_conversions.h" />
+    <ClInclude Include="cmyk_space.h" />
+    <ClInclude Include="color_support.h" />
     <ClInclude Include="common.h" />
-    <ClInclude Include="hsl_conversions.h" />
-    <ClInclude Include="hsv_conversions.h" />
+    <ClInclude Include="hsl_space.h" />
+    <ClInclude Include="hsv_space.h" />
     <ClInclude Include="import_exports.h" />
-    <ClInclude Include="rgb_conversions.h" />
+    <ClInclude Include="lch_space.h" />
+    <ClInclude Include="rgb_color.h" />
     <ClInclude Include="white_points.h" />
-    <ClInclude Include="xyz_conversions.h" />
+    <ClInclude Include="xyz_space.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="console_examples.png" />

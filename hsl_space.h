@@ -1,9 +1,9 @@
-// hsl_conversions.h
+// hsl_space.h
 
 #pragma once
 
-#ifndef HSL_CONVERSIONS_H
-#define HSL_CONVERSIONS_H
+#ifndef HSL_SPACE_H
+#define HSL_SPACE_H
 
 // --- Start of "extern C" block ---
 #ifdef __cplusplus
