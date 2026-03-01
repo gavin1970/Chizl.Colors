@@ -32,11 +32,18 @@ typedef enum {
 CHIZL_COLORS_API XyzSpace RgbToXyz(RgbColor rgb);
 
 /// <summary>
-/// Converts a color from XYZ color space to Lab color space.
+/// Converts a color from XYZ color space to Lab color space.  (Default: WP_D65_FULL white point is used for the conversion.)
 /// </summary>
 /// <param name="xyz">The color in XYZ color space to convert.</param>
 /// <returns>The color converted to Lab color space.</returns>
 CHIZL_COLORS_API LabSpace XyzToLab(XyzSpace xyz);
+
+/// <summary>
+/// Converts a color from XYZ color space to Luv color space.  (Default: WP_D65_FULL white point is used for the conversion.)
+/// </summary>
+/// <param name="rgb">The color in XYZ color space to convert.</param>
+/// <returns>The color converted to Luv color space.</returns>
+CHIZL_COLORS_API LuvSpace XyzToLuv(XyzSpace rgb);
 
 /// <summary>
 /// Converts a color from XYZ color space to LAB color space using a specified white point.
@@ -46,6 +53,13 @@ CHIZL_COLORS_API LabSpace XyzToLab(XyzSpace xyz);
 /// <returns>The color converted to LAB color space.</returns>
 CHIZL_COLORS_API LabSpace XyzToLabEx(XyzSpace xyz, WhitePointType wp);
 
+/// <summary>
+/// Converts a color from XYZ color space to Luv color space using a specified white point.
+/// </summary>
+/// <param name="xyz">The color in XYZ color space to convert.</param>
+/// <param name="wp">The white point type to use for the conversion.</param>
+/// <returns>The color converted to LUV color space.</returns>
+CHIZL_COLORS_API LuvSpace XyzToLuvEx(XyzSpace xyz, WhitePointType wp);
 
 // --- End of "extern C" block ---
 #ifdef __cplusplus

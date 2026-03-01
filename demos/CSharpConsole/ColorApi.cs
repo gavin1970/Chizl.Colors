@@ -54,6 +54,22 @@ public struct LabSpace
 }
 
 [StructLayout(LayoutKind.Sequential)]
+public struct LchSpace
+{
+    public double l;
+    public double c;
+    public double h;
+}
+
+[StructLayout(LayoutKind.Sequential)]
+public struct LuvSpace
+{
+    public double l;
+    public double u;
+    public double v;
+}
+
+[StructLayout(LayoutKind.Sequential)]
 public struct WhitePoint
 {
     public double x;
@@ -93,7 +109,7 @@ internal static class ColorApi
     [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
     public static extern RgbColor HslToRgb(HslSpace hsl);
 
-    // --- Xyz / Lab Conversions ---
+    // --- Xyz / Lab / Luv Conversions ---
 
     [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
     public static extern XyzSpace RgbToXyz(RgbColor rgb);
@@ -104,6 +120,11 @@ internal static class ColorApi
     [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
     public static extern LabSpace XyzToLab(XyzSpace xyz);
 
+    [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern LuvSpace XyzToLuv(XyzSpace rgb);
+
+    [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern LuvSpace XyzToLuvEx(XyzSpace xyz, WhitePointType wp);
 
     // --- Cmyk Conversions ---
 

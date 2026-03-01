@@ -7,9 +7,9 @@
 // Version components (updated by update_version.ps1 during pre-build)
 #define CHIZL_COLORS_FULL_YEAR 2026
 #define CHIZL_COLORS_YEAR_OFFSET 6
-#define CHIZL_COLORS_MONTH 2
-#define CHIZL_COLORS_DAY 27
-#define CHIZL_COLORS_UTC_TIME 1704
+#define CHIZL_COLORS_MONTH 3
+#define CHIZL_COLORS_DAY 1
+#define CHIZL_COLORS_UTC_TIME 0013
 #define CHIZL_COLORS_NUGET_RELEASE 1
 
 // Stringify helper macros

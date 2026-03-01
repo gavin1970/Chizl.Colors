@@ -88,6 +88,8 @@ static void ShowColorInfo(RgbColor bgColor, RgbColor fgColor, char* title) {
 	CmykSpace cmyk = RgbToCmyk(bgColor);
     LabSpace labFull = XyzToLabEx(xyz, d64_Full_Type);
     LabSpace lab64 = XyzToLabEx(xyz, d64_Type);
+    LuvSpace luvFull = XyzToLuvEx(xyz, d64_Full_Type);
+    LuvSpace luv64 = XyzToLuvEx(xyz, d64_Type);
 
     RgbColor hsv_rt = HsvToRgb(hsv);
     RgbColor hsl_rt = HslToRgb(hsl);
@@ -108,6 +110,10 @@ static void ShowColorInfo(RgbColor bgColor, RgbColor fgColor, char* title) {
     PrintLine("  - XYZ: X:%.2f, Y:%.2f, Z:%.2f", xyz.x, xyz.y, xyz.z);
     PrintLine("  - LAB_64:   L:%.4f, A:%.4f, B:%.4f", lab64.l, lab64.a, lab64.b);
     PrintLine("  - LAB_FULL: L:%.4f, A:%.4f, B:%.4f", labFull.l, labFull.a, labFull.b);
+    PrintLine("  - LUV_64:   L:%.4f, U:%.4f, V:%.4f", luv64.l, luv64.u, luv64.v);
+    PrintLine("  - LUV_FULL: L:%.4f, U:%.4f, V:%.4f", luvFull.l, luvFull.u, luvFull.v);
+    //PrintLine("  - LCH_64:   L:%.4f, C:%.4f, H:%.4f", lch64.l, luv64.u, luv64.v);
+    //PrintLine("  - LCH_FULL: L:%.4f, C:%.4f, H:%.4f", luvFull.l, luvFull.u, luvFull.v);
     PrintLine("  - HEX8: %s (%i)", ahex, aDec);
     PrintLine("  - HEX6: %s (%i)", hex, dec);
 

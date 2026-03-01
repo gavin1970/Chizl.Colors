@@ -74,6 +74,9 @@ namespace CSharpConsole
             var labFull = XyzToLabEx(xyz, WhitePointType.WPID_D65_FULL);
             var lab64 = XyzToLabEx(xyz, WhitePointType.WPID_D65);
 
+            var luvFull = XyzToLuvEx(xyz, WhitePointType.WPID_D65_FULL);
+            var luv64 = XyzToLuvEx(xyz, WhitePointType.WPID_D65);
+
             var ahex = PtrToAnsiAndFree(RgbToRgbHex(clr, true));     //converts nint to string and frees the pointer, REQUIRED.
             var hex = PtrToAnsiAndFree(RgbToRgbHex(clr, false));     //converts nint to string and frees the pointer, REQUIRED.
 
@@ -91,8 +94,10 @@ namespace CSharpConsole
             sb.AppendLine($"{pad} - HSV: H:{hsv.hue:0.00}, S:{hsv.saturation:0.00}, V:{hsv.value:0.00}, Raw:{hsv.raw_value:0.000000}");
             sb.AppendLine($"{pad} - HSL: H:{hsl.hue:0.00}, S:{hsl.saturation:0.00}, L:{hsl.lightness:0.00}, Raw:{hsl.raw_lightness:0.000000}");
             sb.AppendLine($"{pad} - XYZ: X:{xyz.x:0.00}, Y:{xyz.y:0.00}, Z:{xyz.z:0.00}");
-            sb.AppendLine($"{pad} - LABFull: L:{labFull.l:0.0000}, A:{labFull.a:0.0000}, B:{labFull.b:0.0000}");
             sb.AppendLine($"{pad} - LAB_D64: L:{lab64.l:0.0000}, A:{lab64.a:0.0000}, B:{lab64.b:0.0000}");
+            sb.AppendLine($"{pad} - LABFull: L:{labFull.l:0.0000}, A:{labFull.a:0.0000}, B:{labFull.b:0.0000}");
+            sb.AppendLine($"{pad} - LUV_D64: L:{luv64.l:0.0000}, U:{luv64.u:0.0000}, V:{luv64.v:0.0000}");
+            sb.AppendLine($"{pad} - LUVFull: L:{luvFull.l:0.0000}, U:{luvFull.u:0.0000}, V:{luvFull.v:0.0000}");
 
             sb.AppendLine($"{pad} - HEX8: {ahex}, Dec: {aDec}");
             sb.AppendLine($"{pad} - HEX6: {hex},   Dec: {dec}");
