@@ -85,13 +85,11 @@ public enum WhitePointType : int
 
 internal static class ColorApi
 {
-    private const string DllName = "chizl.colors.dll";
+    private const string DllName = "chizl.colors";
 
-    static ColorApi()
-    {
-        if (!File.Exists(DllName))
-            throw new Exception($"Missing file: {DllName}");
-    }
+    // FUTURE* - Consider using NativeLibrary.SetDllImportResolver to avoid the need for a static constructor
+    //           and to allow for more flexible library loading (e.g., from a specific path or with versioning).
+    // static ColorApi() => NativeBootstrap.LibaryName = DllName;
 
     // --- HSV Conversions ---
 
@@ -149,10 +147,9 @@ internal static class ColorApi
 
     // --- Hex String Conversion (The special one!) ---
 
-    //[DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
     //[return: MarshalAs(UnmanagedType.LPStr)]
     [DllImport(DllName, CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi)]
-    internal static extern nint RgbToRgbHex(RgbColor rgb, bool includeAlpha);
+    internal static extern nint RgbToRgbHex(RgbColor rgb, [MarshalAs(UnmanagedType.I1)] bool includeAlpha);
 
     // --- Set Console Colors by struct ---
 
@@ -175,9 +172,9 @@ internal static class ColorApi
     [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
     public static extern void ChizlFree(IntPtr ptr);
 
-    [DllImport(DllName)]
+    [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
     public static extern void ResetColor();
 
-    [DllImport(DllName)]
+    [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
     public static extern void ClearBuffer();
 }
