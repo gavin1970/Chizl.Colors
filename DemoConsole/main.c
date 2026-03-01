@@ -3,12 +3,20 @@
 #include <windows.h>    // FlushConsoleInputBuffer, GetStdHandle, STD_INPUT_HANDLE
 #include "main.h"
 
-// stress tests
+// Stress Testing edge cases for rounding and precision, especially for LCH which can be more 
+// lossy due to the polar to cartesian conversions.
 const RgbColor rgbNearPureBlack = { 255, 1, 2, 3 };
 const RgbColor rgbDeepNavy = { 255, 18, 52, 86 };
 const RgbColor rgbNearPureWhite = { 255, 254, 253, 252 };
+// Stress Testing LCH, which can be more lossy due to the polar to cartesian conversions, especially 
+// around neutral grays where hue can flip and chroma is very low, which can cause rounding issues.
+const RgbColor rgbGray = { 255, 127, 127, 127 };    //7F7F7F
+const RgbColor rgbGray2 = { 255, 127, 127, 128 };   //7F7F80
+const RgbColor rgbGray3 = { 255, 128, 128, 127 };   //80807F
+const RgbColor rgbGray4 = { 255, 127, 128, 128 };   //7F8080
+const RgbColor rgbGray5 = { 255, 128, 128, 128 };   //808080
 
-
+// Common Colors for testing.
 const RgbColor rgbRed = { 255, 255, 0, 0 };
 const RgbColor rgbBlue = { 255, 0, 0, 255 };
 const RgbColor rgbViolet = { 255, 127, 0, 255 };
@@ -60,7 +68,8 @@ static void SetColors(const RgbColor* bg, const RgbColor* fg) {
 }
 
 /// <summary>
-/// Does a dump of the bg color info for the provided color, including conversions to/from HSL and HSV, and hex formats.
+/// Does a dump of the bg color info for the provided color, 
+/// including conversions to/from HSL and HSV, and hex formats.
 /// </summary>
 static void ColorConversionDemo(void)
 {
@@ -68,9 +77,26 @@ static void ColorConversionDemo(void)
     ShowColorInfo(rgbViolet, rgbWhite, "Violet - #7F00FF");
     ShowColorInfo(rgbCyan, rgbBlack, "Cyan - #00FFFF");
     ShowColorInfo(rgbAshRose, rgbWhite, "Ash Rose - #B5817D");
+
+    /*  <- add forward slash ('//*') to uncomment group.
+    
+    // Stress Testing edge cases for rounding and precision, especially for LCH which can be more 
+    // lossy due to the polar to cartesian conversions.
     ShowColorInfo(rgbNearPureBlack, rgbWhite, "Near Pure Black - #010203");
     ShowColorInfo(rgbDeepNavy, rgbWhite, "Deep Navy - #123456");
     ShowColorInfo(rgbNearPureWhite, rgbBlack, "Near Pure White - #FEFDFC");
+    /**/
+
+    /*  <- add forward slash ('//*') to uncomment group.
+
+    // Stress Testing LCH
+    ShowColorInfo(rgbGray, rgbBlack, "Gray - #7F7F7F");
+    ShowColorInfo(rgbGray2, rgbBlack, "Gray - #7F7F80");
+    ShowColorInfo(rgbGray3, rgbBlack, "Gray - #80807F");
+    ShowColorInfo(rgbGray4, rgbBlack, "Gray - #7F8080");
+    ShowColorInfo(rgbGray5, rgbBlack, "Gray - #808080");
+
+    /**/
 
     AnyKey("\nPress any key to continue...", &rgbYellow);
 }
@@ -122,6 +148,9 @@ static void ShowColorInfo(RgbColor bgColor, RgbColor fgColor, char* title) {
     PrintLine("  - HSL Roundtrip -> RGB: (R:%u, G:%u, B:%u)", hsl_rt.red, hsl_rt.green, hsl_rt.blue);
     PrintLine("  - HSV Roundtrip -> RGB: (R:%u, G:%u, B:%u)", hsv_rt.red, hsv_rt.green, hsv_rt.blue);
 	PrintLine("  - CMYK Roundtrip -> RGB: (R:%u, G:%u, B:%u)", cmyk_rt.red, cmyk_rt.green, cmyk_rt.blue);
+
+    //PrintLine("  - LCH_64 raw C = %.17g\n", lch64.c);
+    //PrintLine("  - LAB_64 raw a = %.17g, b = %.17g\n", lab64.a, lab64.b);
 
     ResetColor();
 

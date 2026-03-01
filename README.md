@@ -1,6 +1,6 @@
 # Chizl.Colors
 
-[![Version](https://img.shields.io/badge/version-6.2.27.1704-blue.svg)](https://github.com/gavin1970/Chizl.Colors)
+[![Version](https://img.shields.io/badge/version-6.3.1.0251-blue.svg)](https://github.com/gavin1970/Chizl.Colors)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/gavin1970/Chizl.Colors/blob/master/LICENSE.md)
 ![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux-purple.svg)<br/>
 ![Dependencies](https://img.shields.io/badge/dependencies-none-purple)
@@ -346,7 +346,10 @@ This project is licensed under the MIT License - see the [LICENSE](https://githu
 
 ## Version History
 
-- **6.3.1.0154** - Current release
+- **6.3.1.0251** - Current release
+  - Fine tunning LabToLch using LCH CHROMA EPS of 0.003 to prevent chroma from being rounded to 0 and thus LCH hue becoming undefined.  This allows for more accurate LCH conversions, especially for near-neutral colors.  Also using PI 3.14159265358979323846 for improved precision in hue calculations.
+
+- **6.3.1.0154**
   - Library now supports RGB, HSV, HSL, CMYK, XYZ, Lab, Lch, and Luv color space conversions.	 Console color manipulation functions have been expanded to allow setting foreground and background colors separately or together using RGB values.  Hex and decimal format conversions for RGB colors are also supported.
 
 - **6.2.27.1704**

@@ -4,13 +4,16 @@
 #ifndef COMMON_H
 #define COMMON_H
 
-static const double CHIZL_PI_F = 3.14159265358979323846f;					// float
-static const double CHIZL_PI = 3.14159265358979323846;						// double
-static const double CHIZL_PI_L = 3.14159265358979323846264338327950288L;	// long double
-
 //#define TRUE 1
 //#define FALSE 0
 //#define BOOL int
+
+static const double CHIZL_PI_F = 3.14159265358979323846f;					// float
+static const double CHIZL_PI = 3.14159265358979323846;						// double
+static const double CHIZL_PI_L = 3.14159265358979323846264338327950288L;	// long double
+static const double CHIZL_LCH_CHROMA_EPS = 0.003;							// 1e-6 - A small epsilon value to treat very low chroma as zero in LCH conversions. 
+																			// Perceptual stability: treat near-neutral colors as neutral.
+																			// 0.003 clamps your observed D65Full gray drift (C=0.002).
 
 static inline unsigned char clampUChr(unsigned char v, unsigned char min, unsigned char max) { return v < min ? min : (v > max ? max : v); }
 static inline int clampInt(int v, int min, int max) { return v < min ? min : (v > max ? max : v); }

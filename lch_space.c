@@ -6,25 +6,22 @@
 
 CHIZL_COLORS_API LchSpace LabToLch(LabSpace lab)
 {
-    double sH = atan2(lab.b, lab.a);
+    double a = lab.a;
+    double b = lab.b;
 
-    // convert from radians to degrees
-    if (sH > 0)
-        sH = (sH / CHIZL_PI) * 180.0;
-    else
-        sH = 360 - (fabs(sH) / CHIZL_PI) * 180.0;
+    double C = sqrt(a * a + b * b);
+    double H = 0.0;
 
-    if (sH < 0)
-        sH += 360.0;
-    else if (sH >= 360)
-        sH -= 360.0;
+    if (C < CHIZL_LCH_CHROMA_EPS) {
+        C = 0.0;
+        H = 0.0;
+    }
+    else {
+        H = atan2(b, a) * (180.0 / CHIZL_PI);
+        if (H < 0.0) //H += 360.0;
+            H = fmod(H + 360.0, 360.0);
+    }
 
-    LchSpace lch = {
-        lab.l,
-        sqrt(lab.a * lab.a + lab.b * lab.b),
-        sH
-    };
-
+    LchSpace lch = { lab.l, C, H };
     return lch;
 }
-
