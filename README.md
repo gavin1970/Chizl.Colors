@@ -12,7 +12,7 @@ A lightweight, cross-platform C/C++ library with .NET interop for color manipula
 
 ## Features
 
-- **Color Space Conversions**: Convert between RGB, HSV, and HSL color spaces
+- **Color Space Conversions**: Convert between RGB, HSV, HSL, CMYK, LAB, LCH, LUV, and XYZ color spaces
 - **Console Color Support**: Set 24-bit true colors for foreground and background in console applications
 - **ANSI Escape Sequences**: Automatic ANSI color code generation for terminal rendering
 - **Cross-Language Support**: Native C/C++ library with .NET interop examples
