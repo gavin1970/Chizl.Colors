@@ -163,7 +163,7 @@ ClearBuffer();
 	* Converts XYZ to Lab color space with specified white point type for precision control.
 	* **Returns**: `LabSpace` with L, a, b components.
 	
-* `LabSpace RgbToLuv(RgbColor rgb)`
+* `LabSpace RgbToLab(RgbColor rgb)`
 	* Converts RGB to Lab color space.  (Default: WP_D65_FULL white point is used for the Xyz to Lab conversion.)
 	* **Returns**: `LabSpace` with L, a, b components.
 
