@@ -11,6 +11,7 @@
 #include "xyz_space.h"
 #include "cmyk_space.h"
 #include "lch_space.h"
+#include "luv_space.h"
 
 // --- DECLARATIONS ---
 // We "declare" the variables with 'extern'.

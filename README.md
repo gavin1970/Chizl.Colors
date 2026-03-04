@@ -1,6 +1,6 @@
 # Chizl.Colors
 
-[![Version](https://img.shields.io/badge/version-6.3.1.0251-blue.svg)](https://github.com/gavin1970/Chizl.Colors)
+[![Version](https://img.shields.io/badge/version-6.3.4.0543-blue.svg)](https://github.com/gavin1970/Chizl.Colors)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/gavin1970/Chizl.Colors/blob/master/LICENSE.md)
 ![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux-purple.svg)<br/>
 ![Dependencies](https://img.shields.io/badge/dependencies-none-purple)
@@ -12,7 +12,7 @@ A lightweight, cross-platform C/C++ library with .NET interop for color manipula
 
 ## Features
 
-- **Color Space Conversions**: Convert between RGB, HSV, and HSL color spaces
+- **Color Space Conversions**: Convert between RGB, HSV, HSL, CMYK, XYZ, Lab, Lch, and Luv color spaces
 - **Console Color Support**: Set 24-bit true colors for foreground and background in console applications
 - **ANSI Escape Sequences**: Automatic ANSI color code generation for terminal rendering
 - **Cross-Language Support**: Native C/C++ library with .NET interop examples
@@ -346,7 +346,10 @@ This project is licensed under the MIT License - see the [LICENSE](https://githu
 
 ## Version History
 
-- **6.3.1.0251** - Current release
+- **6.3.4.0543** - Current release
+  - Added RGB to LCH and RGB to LUV conversions to support quick access to LCH and LUV color spaces for applications that require perceptual color adjustments.  This allows developers to easily convert RGB colors to LCH and LUV for tasks like color grading, palette generation, and advanced color manipulation while maintaining the existing RGB, HSV, HSL, CMYK, XYZ, and Lab conversions.
+
+- **6.3.1.0251**
   - Fine tunning LabToLch using LCH CHROMA EPS of 0.003 to prevent chroma from being rounded to 0 and thus LCH hue becoming undefined.  This allows for more accurate LCH conversions, especially for near-neutral colors.  Also using PI 3.14159265358979323846 for improved precision in hue calculations.
 
 - **6.3.1.0154**

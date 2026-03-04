@@ -13,6 +13,17 @@ extern "C" {
 #include "import_exports.h"
 #include "chizl_colors_types.h"
 
+/// <summary>
+/// Converts an RGB color to the LCH (Lightness, Chroma, Hue) color space.
+/// </summary>
+/// <param name="rgb">The RGB color to convert.</param>
+/// <returns>The color represented in the LCH color space.</returns>
+CHIZL_COLORS_API LchSpace RgbToLch(RgbColor rgb);
+/// <summary>
+/// Converts a color from LAB color space to LCH color space.
+/// </summary>
+/// <param name="lab">The color in LAB color space to convert.</param>
+/// <returns>The color converted to LCH color space.</returns>
 CHIZL_COLORS_API LchSpace LabToLch(LabSpace lab);
 
 // --- End of "extern C" block ---

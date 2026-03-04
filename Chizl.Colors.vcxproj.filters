@@ -60,6 +60,9 @@
     <ClCompile Include="lch_space.c">
       <Filter>Source Files\public</Filter>
     </ClCompile>
+    <ClCompile Include="luv_space.c">
+      <Filter>Source Files\public</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h">
@@ -96,6 +99,9 @@
       <Filter>Header Files\public</Filter>
     </ClInclude>
     <ClInclude Include="lch_space.h">
+      <Filter>Header Files\public</Filter>
+    </ClInclude>
+    <ClInclude Include="luv_space.h">
       <Filter>Header Files\public</Filter>
     </ClInclude>
   </ItemGroup>

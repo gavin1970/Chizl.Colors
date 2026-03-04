@@ -1,8 +1,17 @@
 // lch_conversions.c
+
 #include "lch_space.h"
+#include "xyz_space.h"          // For RgbToLch -> XyzToLab and XyzToLab
 #include "common.h"             // For clampInt, clampDbl
 #include <string.h>             // For strlen, strcpy_s
 #include <math.h>               // For fmin, fmax, fabs, round, pow
+
+CHIZL_COLORS_API LchSpace RgbToLch(RgbColor rgb)
+{
+    XyzSpace xyz = RgbToXyz(rgb);
+    LabSpace lab = XyzToLab(xyz);
+	return LabToLch(lab);
+}
 
 CHIZL_COLORS_API LchSpace LabToLch(LabSpace lab)
 {
