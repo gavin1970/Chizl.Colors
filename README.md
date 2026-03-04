@@ -163,6 +163,10 @@ ClearBuffer();
 	* Converts XYZ to Lab color space with specified white point type for precision control.
 	* **Returns**: `LabSpace` with L, a, b components.
 	
+* `LabSpace RgbToLuv(RgbColor rgb)`
+	* Converts RGB to Lab color space.  (Default: WP_D65_FULL white point is used for the Xyz to Lab conversion.)
+	* **Returns**: `LabSpace` with L, a, b components.
+
 * `LuvSpace XyzToLuv(XyzSpace rgb)`
 	* Converts a color from XYZ color space to Luv color space.  (Default: WP_D65_FULL white point is used for the conversion.)
 	* **Returns**: `LuvSpace` with L, u, v components.
@@ -171,6 +175,9 @@ ClearBuffer();
 	* Converts a color from XYZ color space to Luv color space using a specified white point.
 	* **Returns**: `LuvSpace` with L, u, v components.
 
+* `LuvSpace RgbToLuv(RgbColor rgb)`
+	* Converts RGB to Luv color space.  (Default: WP_D65_FULL white point is used for the conversion.)
+	* **Returns**: `LuvSpace` with L, u, v components.
 
 * `RgbColor HsvToRgb(HsvSpace hsv)`
 	* Converts HSV to RGB. Uses raw_value if available for precision.
