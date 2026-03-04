@@ -15,6 +15,16 @@ extern "C" {
 #include "white_points.h"       // For white point definitions used in XYZ to Lab conversions.
 #include <stdint.h>             // For uint32_t type
 
+
+
+/// <summary>
+/// Converts an RGB color to the Lab color space.<br/>
+/// (Default: WP_D65_FULL white point is used for the conversion.)
+/// </summary>
+/// <param name="rgb">The RGB color to convert.</param>
+/// <returns>The color represented in Lab color space.</returns>
+CHIZL_COLORS_API LabSpace RgbToLab(RgbColor rgb);
+	
 /// <summary>
 /// Converts an RGB color to the CIE XYZ color space.
 /// </summary>
@@ -23,7 +33,8 @@ extern "C" {
 CHIZL_COLORS_API XyzSpace RgbToXyz(RgbColor rgb);
 
 /// <summary>
-/// Converts a color from XYZ color space to Lab color space.  (Default: WP_D65_FULL white point is used for the conversion.)
+/// Converts a color from XYZ color space to Lab color space.<br/>
+/// (Default: WP_D65_FULL white point is used for the conversion.)
 /// </summary>
 /// <param name="xyz">The color in XYZ color space to convert.</param>
 /// <returns>The color converted to Lab color space.</returns>

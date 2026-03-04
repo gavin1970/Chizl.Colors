@@ -1,6 +1,6 @@
 # Chizl.Colors
 
-[![Version](https://img.shields.io/badge/version-6.3.4.0543-blue.svg)](https://github.com/gavin1970/Chizl.Colors)
+[![Version](https://img.shields.io/badge/version-6.3.4.1749-blue.svg)](https://github.com/gavin1970/Chizl.Colors)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/gavin1970/Chizl.Colors/blob/master/LICENSE.md)
 ![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux-purple.svg)<br/>
 ![Dependencies](https://img.shields.io/badge/dependencies-none-purple)
@@ -179,6 +179,10 @@ ClearBuffer();
 	* Converts RGB to Luv color space.  (Default: WP_D65_FULL white point is used for the conversion.)
 	* **Returns**: `LuvSpace` with L, u, v components.
 
+* `LchSpace RgbToLch(RgbColor rgb)`
+	* Converts RGB to LCH color space.  (Default: WP_D65_FULL white point is used for the conversion.)
+	* **Returns**: `LchSpace` with L, C, H components.	
+
 * `RgbColor HsvToRgb(HsvSpace hsv)`
 	* Converts HSV to RGB. Uses raw_value if available for precision.
 	* **Note**: Only ~3.6M HSV combinations exist for 16.7M RGB colors
@@ -353,7 +357,10 @@ This project is licensed under the MIT License - see the [LICENSE](https://githu
 
 ## Version History
 
-- **6.3.4.0543** - Current release
+- **6.3.4.1749** - Current release
+  - Missed the RgbToLab conversion in the previous update, so added that in this version to ensure full RGB to Lab support.  This allows developers to easily convert RGB colors to Lab for tasks like color grading, palette generation, and advanced color manipulation while maintaining the existing RGB, HSV, HSL, CMYK, XYZ, LCH, and LUV conversions.
+
+- **6.3.4.0543**
   - Added RGB to LCH and RGB to LUV conversions to support quick access to LCH and LUV color spaces for applications that require perceptual color adjustments.  This allows developers to easily convert RGB colors to LCH and LUV for tasks like color grading, palette generation, and advanced color manipulation while maintaining the existing RGB, HSV, HSL, CMYK, XYZ, and Lab conversions.
 
 - **6.3.1.0251**

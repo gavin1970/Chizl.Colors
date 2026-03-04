@@ -124,10 +124,19 @@ internal static class ColorApi
     [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
     public static extern LuvSpace XyzToLuvEx(XyzSpace xyz, WhitePointType wp);
 
+    [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern LuvSpace RgbToLuv(RgbColor rgb);
+
+    [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern LabSpace RgbToLab(RgbColor rgb);
+
     // --- Lch Conversions ---
 
     [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
     public static extern LchSpace LabToLch(LabSpace rgb);
+
+    [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
+    public static extern LchSpace RgbToLch(RgbColor rgb);
 
     // --- Cmyk Conversions ---
 

@@ -43,6 +43,12 @@ static inline LabSpace XyzToLab_White(XyzSpace xyz, WhitePoint wp)
     return lab;
 }
 
+CHIZL_COLORS_API LabSpace RgbToLab(RgbColor rgb)
+{
+    XyzSpace xyz = RgbToXyz(rgb);
+	return XyzToLab_White(xyz, WP_D65_FULL);     // WP_D65_FULL - default, WP_D65 is the other options
+}
+
 CHIZL_COLORS_API XyzSpace RgbToXyz(RgbColor rgb)
 {
     // Normalize R, G, B to the range [0, 1]
